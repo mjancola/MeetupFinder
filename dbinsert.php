@@ -10,15 +10,15 @@ if (!isset($_POST['submit'])) {
   <body>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
       Fill in the form to add to the user db table: <br/>
-      <input type="text" name="name" size="30" value="string"/>
-      <input type="text" name="fbtoken" size="30" value="string"/>
-      <input type="number" name="fbexpires" size="30" value="integer"/>
-      <input type="text" name="litoken" size="30" />
-      <input type="number" name="liexpires" size="30" />
-      <input type="text" name="fstoken" size="30" />
-      <input type="number" name="fsexpires" size="30" />
+      <input type="text" name="name" size="30" value="name:string"/>
+      <input type="text" name="fbtoken" size="30" value="facebook_token:string"/>
+      <input type="number" name="fbexpires" size="30" value="facebook_expires:integer"/>
+      <input type="text" name="litoken" size="30" value="linkedin_token:string" />
+      <input type="number" name="liexpires" size="30" value="linkedin_expires:integer"/>
+      <input type="text" name="fstoken" size="30" value="foursquare_token:string"/>
+      <input type="number" name="fsexpires" size="30" value=foursquare_expires:integer"/>
       <br />
-      <input type="submit" name="submit" value="Log In" />
+      <input type="submit" name="submit" value="Add" />
     </form>
   </body>
 </html>
@@ -36,10 +36,12 @@ if (!isset($_POST['submit'])) {
   $liexpires=$_POST['liexpires'];
   $fstoken=$_POST['fstoken'];
   $fsexpires=$_POST['fsexpires'];
-  mysql_connect("localhost", "root", "CSC9010") or die(mysql_error()); mysql_select_db("meetupfinder") or die(mysql_error()); 
-  //mysql_query("INSERT INTO users VALUES ($name,$_POST\['fbtoken'\],$POST\['fbexpires'\],$_POST\['litoken'\],$POST\['liexpires'\],$_POST\['fstoken'\],$POST\['fsexpires'\])"); 
-  mysql_query("INSERT INTO users VALUES ($name,$fbtoken, $fbexpires, $litoken, $liexpires, $fstoken, $fsexpires))");
-  Print "Added!"; 
+  // Print "NAME:".$name." FBTOKEN:". $fbtoken." FBEXP:".$fbexpires." LITOKEN:".$litoken." LIEXP:".$liexpires." FSTOKEN:".$fstoken." FSEXP".$fsexpires;
+  mysql_connect("localhost", "root", "CSC9010") or die(mysql_error()); 
+  mysql_select_db("meetupfinder") or die(mysql_error()); 
+  $query="INSERT INTO users VALUES ('$name', '$fbtoken', '$fbexpires', '$litoken', '$liexpires', '$fstoken', '$fsexpires')";
+  mysql_query($query);
+  // Print "Added!"; 
  
   // redirect to display the db
   $redirectUriPath = '/dbtest.php';
