@@ -2,7 +2,7 @@
 <body>
 <title>Meet up Finder</title>
 <h1>Welcome to Meet up finder</h1>
-<form action="welcome.php" method="post">
+<form action="fb2.php" method="post">
 <form action="linkedin.php" method="post">
 First Name: <input type="text" name="fname">
 Location: <input type="text" name="location">
