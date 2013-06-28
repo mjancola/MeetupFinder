@@ -44,7 +44,7 @@ if (!isset($_POST['submit'])) {
   // Print "Added!"; 
  
   // redirect to display the db
-  $redirectUriPath = '/dbtest.php';
+  $redirectUriPath = '/db/dbtest.php';
   $url = (isset($_SERVER['HTTPS'])?'https://':'http://') . $_SERVER['HTTP_HOST'] . $redirectUriPath;
   header('Location: ' . $url);
 }
