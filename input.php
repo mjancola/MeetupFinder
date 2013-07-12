@@ -2,9 +2,9 @@
 <body>
 <title>Meet up Finder</title>
 <h1>Welcome to Meet up finder</h1>
-<h2>Please enter your username and desired meetup location:</h2>
+<h2>Please enter your name and desired meetup location:</h2>
 <form action="checkuser.php" method="post">
-Username: <input type="text" name="username">
+Name: <input type="text" name="name">
 Location: <input type="text" name="location">
 <input type="submit">
 </form>
