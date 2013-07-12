@@ -35,6 +35,11 @@
   $beforeCount = count($friendsList);
 
 
+  $name = $_SESSION['name'];
+  $location = $_SESSION['location'];
+
+  print("<h2>name=$name</h2>");
+  print("<h2>location=$location</h2>");
   print("<table>");
   for($i=count($friendsList); $i > 0; $i--) {
   //foreach ($friendsList as $friend) {
@@ -42,7 +47,8 @@
     $id = $friendsList[$i]['id'];
     $name = $friendsList[$i]['name'];
     $hometown = $friendsList[$i]['hometown']['name'];
-    if ($hometown != "") {
+    //if ($hometown != "") {
+    if(stristr($hometown,$location) !== FALSE) {
       print ("<tr><td>".$name."</td><td>".$hometown."</td></tr>");
     }
     else {
