@@ -68,6 +68,5 @@
   $goToUrl = (isset($_SERVER['HTTPS'])?'https://':'http://') .  $_SERVER['HTTP_HOST'] . $redirectUriPath;
 ?> 
 
-<p>Found <?php echo $beforeCount ?> friends in FB. <?php echo count($friendsList) ?> with hometowns</p>
-<p>To proceed with checking your LinkedIn account, click the the button. (redirects to:".$goToUrl."</p>
-<input type="button" onClick="return window.location='<?php echo $goToUrl; ?>';" value="Let's Go" />
+<p>Found <?php echo $beforeCount ?> friends in FB. <?php echo count($friendsList) ?> with hometowns matching the search location</p>
+<!-- <input type="button" onClick="return window.location='<?php echo $goToUrl; ?>';" value="Let's Go" /> -->
