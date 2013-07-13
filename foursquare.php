@@ -82,13 +82,13 @@ function getAccessToken() {
 
     // Retrieve access token information
     $response = file_get_contents($url, false, $context);
-	
+
 	// Native PHP object, please
     $token = json_decode($response);
 
 	$_SESSION['access_token'] = $token->access_token; // guard this!
-  //  $_SESSION['expires_in'] = $token->expires_in; // relative time (in seconds)
-    //$_SESSION['expires_at']   = time() + $_SESSION['expires_in']; // absolute time
+  $_SESSION['expires_in'] = $token->expires_in; // relative time (in seconds)
+   $_SESSION['expires_at']   = time() + $_SESSION['expires_in']; // absolute time
 
     return true;
 }
@@ -112,7 +112,7 @@ function fetch($method, $resource, $body = '') {
  
     // Hocus Pocus
     //$response = file_get_contents($url, false, $context);
- 
+ echo $response
     // Native PHP object, please
     //return json_decode($response);	
 }
