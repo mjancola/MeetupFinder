@@ -6,7 +6,7 @@
   $state = $_GET['state'];
 
   $accessTokenExchangeUrl = 'https://foursquare.com/oauth2/access_token?';
-  $redirectUriPath = '/oauthfoursquareback.php';
+  $redirectUriPath = '/app/oauthfoursquareback.php';
 
   // Foursquare requires the following parameters
   $accessTokenExchangeParams = array(

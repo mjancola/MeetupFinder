@@ -9,7 +9,11 @@
   foreach($decodeURL as $key => $b)
   {
     $b = split('=', $b);
-      if($b[0]=='openid.ext1.value.email')
+      if($b[0]=='openid.mode'&& $b[1]=='cancel')
+      {
+        header("Location:http://54.225.92.231/app/meetupfinder");
+      } 
+      elseif($b[0]=='openid.ext1.value.email')
       {
         //echo "{$b[1]}\n";
         $_SESSION['email'] = $b[1];
