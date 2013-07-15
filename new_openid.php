@@ -5,7 +5,7 @@
   // unique session variable to passed to Authenication server as our state
   $_SESSION['state'] = rand(0,999999999);
  
-  $redirectUriPath = '/openidauth.php';
+  $redirectUriPath = '/Open_login.php';
 
   $gotoUrl =  (isset($_SERVER['HTTPS'])?'https://':'http://') .
 		$_SERVER['HTTP_HOST'] . $redirectUriPath;

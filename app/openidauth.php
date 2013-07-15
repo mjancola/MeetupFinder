@@ -2,11 +2,10 @@
   session_start();
 
   $authorizationUrlBase = 'https://www.google.com/accounts/o8/id';
-
 // manual method
   require_once 'HTTP/Client.php';
 
-  $httpClient = new Http_Client();
+ $httpClient = new Http_Client();
   $responseRaw = $httpClient->get($authorizationUrlBase);
   $all=$httpClient->currentResponse();
   $body=$all['body'];

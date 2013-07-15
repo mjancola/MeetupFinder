@@ -38,7 +38,7 @@ if (isset($_GET['error'])) {
 echo "Congratulations! You have a valid token. Now fetch your profile <br>";
 $accessToken=$_SESSION['access_token'];
 print"$accessToken";
-$user = fetch('GET', '/v2/venues/search?near=19333&query=taco');
+//$user = fetch('GET', '/v2/users/self(firstname,lastname));
 //print "Hello $user->firstName $user->lastName.";
 exit;
  
@@ -82,13 +82,13 @@ function getAccessToken() {
 
     // Retrieve access token information
     $response = file_get_contents($url, false, $context);
-
+	
 	// Native PHP object, please
     $token = json_decode($response);
 
 	$_SESSION['access_token'] = $token->access_token; // guard this!
-  $_SESSION['expires_in'] = $token->expires_in; // relative time (in seconds)
-   $_SESSION['expires_at']   = time() + $_SESSION['expires_in']; // absolute time
+  //  $_SESSION['expires_in'] = $token->expires_in; // relative time (in seconds)
+    //$_SESSION['expires_at']   = time() + $_SESSION['expires_in']; // absolute time
 
     return true;
 }
@@ -111,9 +111,9 @@ function fetch($method, $resource, $body = '') {
  
  
     // Hocus Pocus
-    $response = file_get_contents($url, false, $context);
- echo $response
-    Native PHP object, please
-    return json_decode($response);	
+    //$response = file_get_contents($url, false, $context);
+ 
+    // Native PHP object, please
+    //return json_decode($response);	
 }
 ?>

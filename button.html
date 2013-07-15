@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function checkin_here()
+{
+
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("status").innerHTML=xmlhttp.responseText;
+    }
+  }
+xmlhttp.open("POST","checkin.php",true);
+xmlhttp.send();
+}
+</script>
+</head>
+<body>
+
+
+<form>
+<table>
+<tr><h><button type="button" value="kikko" onclick="checkin_here()">checkin!</button></h>
+  <h><span id="status"></span></p></h></tr>
+
+</table>
+</form>
+</body>
+</html>

@@ -2,8 +2,8 @@
 // Change these
 define('API_KEY',      '4szyuwih9i83'                                         );
 define('API_SECRET',   '29sIwayaMjIBwW31'                                       );
-define('REDIRECT_URI', 'http://54.225.92.231/linkedintrial.php'                        );
-define('SCOPE',        'r_fullprofile r_emailaddress rw_nus'                        );
+define('REDIRECT_URI', 'http://54.225.92.231/linkedintrial.php'                   );
+define('SCOPE',        'r_fullprofile r_network r_basicprofile r_emailaddress rw_nus' );
 
 // You'll probably use a database
 session_name('linkedin');
@@ -49,8 +49,7 @@ print("<p>accessToken=$accessToken</p>\n");
 print ("<h2> Access token is fetched and redirected to linkedin url https://api.linkedin.com//v1/people/ to retrieve first and last names</h2>");
 $user = fetch('GET', '/v1/people/~:(firstName,lastName)');
 print("<h1>Hello $user->firstName $user->lastName.</h1>");
-header('Location: /get_linkedin_data.php');
-exit;
+//exit;
  
 function getAuthorizationCode() 
 {
@@ -128,5 +127,13 @@ function fetch($method, $resource, $body = '')
     // Native PHP object, please
     return json_decode($response);
 }
-
+  $redirectUriPath = '/get_linkedin_data.php';
+  $goToUrl = (isset($_SERVER['HTTPS'])?'https://':'http://') .  $_SERVER['HTTP_HOST'] . $redirectUriPath;
+  //header('Location: /get_linkedin_data.php');
 ?>
+
+<p>To view the connections of your LinkedIn account, please click the the button."</p>
+<input type="button" onClick="return window.location='<?php echo $goToUrl; ?>';" value="Let's Go"/>
+
+
+

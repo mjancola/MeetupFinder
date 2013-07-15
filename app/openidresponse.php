@@ -65,7 +65,7 @@
       Print "<tr><td><b>Name</b></td><td>" .$results['name']. "</td></tr "; 
       Print "<tr><td><b>Email</b></td><td>" .$results['email']. "</td></tr "; 
       Print "<tr><td><b>Facebook Token</b></td><td>" .$results['facebook_token']. "</td></tr "; 
-      Print "<tr><td><b>Facebook Expires</b></td><td>" .$results['facebook_expires']. "</td></tr "; 
+      Print "<tr><td><b>Facebook Expires</b></td><td>" .$results['facebooke_expires']. "</td></tr "; 
       Print "<tr><td><b>LinkedIn Token</b></td><td>" .$results['linkedin_token']. "</td></tr "; 
       Print "<tr><td><b>LinkedIn Expires</b></td><td>" .$results['linkedin_expires']. "</td></tr "; 
       Print "<tr><td><b>Foursquare Token</b></td><td>" .$results['foursquare_token']. "</td></tr "; 
@@ -74,12 +74,11 @@
 */
     // set the session parameters
     $_SESSION['fb_token'] = $results['facebook_token'];
-    $_SESSION['fb_expires'] = $results['facebook_expires'];
+    $_SESSION['fb_expires'] = $results['facebooke_expires'];
     $_SESSION['li_token'] = $results['linkedin_token'];
     $_SESSION['li_expires'] = $results['linkedin_expires'];
     $_SESSION['fs_token'] = $results['foursquare_token'];
     $_SESSION['fs_expires'] = $results['foursquare_expires'];
-    //header('Location: /fb2_auto.php');
     header('Location: /app/start.php');
     exit();
   }

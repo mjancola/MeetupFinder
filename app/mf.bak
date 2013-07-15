@@ -1,0 +1,10 @@
+<html>
+<body>
+<title>Meetup Finder</title>
+<h1>Meetup Finder</h1>
+<form action="gotlocation.php" method="post">
+location: <input type="text" name="location">
+<input type="submit">
+</form>
+</body>
+</html> 

@@ -9,7 +9,7 @@
   
   $accessToken = $_SESSION['access_token'];
  // print("<p>accessToken=$accessToken</p>\n"); 
-  $redirectUriPath = '/get_linkedin_data.php';
+  $redirectUriPath = '/app/get_linkedin_data.php';
 
   //Linkedin requires these
   $params = array(
@@ -35,8 +35,7 @@
    
  $count = 0;
  
- print"<table>";
-  //echo "<table><thead><tr><th>Connection Name</th><th>Present Location</th></tr></thead><tbody>"; 
+  echo "<table><thead><tr><th>Connection Name</th><th>Present Location</th></tr></thead><tbody>"; 
   foreach ($connectionsList as $person) 
   {
     $name = $person['firstName'];       
@@ -47,37 +46,25 @@
     $count= $count+1;
     }       
   }
-  print("</table>"); 
-  
-  
+  print("</tbody></table>"); 
  
   if($count >= 1)
-  {
-  $goToUrl = 'http://54.225.92.231/foursquarenew.php';
-  $goToUrl1 = 'http://54.225.92.231/app/start.php';
   print "<h2>$count of your connections stays in $placename, would you like to meet them?</h2>";
-  //echo "<meta http-equiv=\"content=\"0;URL=http://54.225.92.231/somethingfound.php\">";
-  }
-  else
-  {
-  Print "You have no connections at $placename";
-  header('Location: /nothingfound.php');
-  }
-  $goToUrl3 = 'http://54.225.92.231/app/start.php';  
+  
+  $goToUrl = 'http://54.225.92.231/app/foursquarenew.php';
+  $goToUrl1 = 'http://54.225.92.231/app/start.php';
+    
 ?>
 
-<input type="button" onClick="return window.location='<?php echo $goToUrl;?>';" value="Yes" /> 
-<input type="button" onClick="return window.location='<?php echo $goToUrl1;?>';" value="No" />  
+  <input type="button" onClick="return window.location='<?php echo $goToUrl;?>';" value="Yes" /> 
+  <input type="button" onClick="return window.location='<?php echo $goToUrl1;?>';" value="No" />
   
-  
-//<?php
-//$goToUrl3 = 'http://54.225.92.231/app/start.php';
-//if($count == 0)
-//{
-//Print "You have no connections at $placename";
-//header('Location: /nothingfound.php');
-//}
-//?>
+<?php
+
+if($count == 0)
+//header('Location: /app/nothingfound.php');
+
+?>
 
 
 
