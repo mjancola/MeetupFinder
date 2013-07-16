@@ -36,7 +36,7 @@
  //echo "this is the connnectionlist";
  $count = count($connectionsList);
  //echo $count;
- print_r($connectionsList['venues']);
+// print_r($connectionsList['venues']);
  
  //print_r($connectionsList);
 
@@ -63,7 +63,7 @@ xmlhttp.onreadystatechange=function()
   {
   if (xmlhttp.readyState==4 && xmlhttp.status==200)
     {
-    document.getElementById("status").innerHTML=xmlhttp.responseText;
+    document.getElementById(name).innerHTML=xmlhttp.responseText;
     }
   }
 xmlhttp.open("GET","checkin.php?vote="+name,true);
@@ -77,7 +77,9 @@ xmlhttp.send();
 <form>
 <table>
 
-<?php foreach ($connectionsList as $venue) 
+<?php
+ 
+ foreach ($connectionsList as $venue) 
   {
    //print_r($venue);
      foreach($venue as $narray)
@@ -92,8 +94,11 @@ xmlhttp.send();
 		?>
 		
 		<tr><h><button type="button" value="<?php echo $venueid ?>" onclick="checkin_here(this.value)"><?php echo $name ?></button></h>
-        <h><span id="status"></span></p></h></tr>
-
+        <h><span id="<?php echo $venueid ?>"></span></p></h></tr>
+    </table>
+    </form>
+    </body>
+ </html>
 <?php }	
  
 
@@ -106,7 +111,7 @@ break;
   //print "<h2>$count of your connections stays in $placename, would you like to meet them?</h2>";   */
 
   //bharath
-  echo "<BR><b><i><u> *** Hi Sashank I appended code to add checkin,retrieve the users checkin information and changed the url form pincode (very very small change ) --Bharath  results are below*** </u></i></b><BR><BR>";
+ // echo "<BR><b><i><u> *** Hi Sashank I appended code to add checkin,retrieve the users checkin information and changed the url form pincode (very very small change ) --Bharath  results are below*** </u></i></b><BR><BR>";
 
 //*********//
 //TO checkin manually by passing a venueID
@@ -132,7 +137,7 @@ $params_checkin= array(
   //print_r( $responseArray );
 
 //********//
-$userinfoURL='https://api.foursquare.com/v2/users/self/checkins?';  //To retrieve Checkin information from user profile
+/* $userinfoURL='https://api.foursquare.com/v2/users/self/checkins?';  //To retrieve Checkin information from user profile
 $params_checkin = array(
     'method'=>'GET',
     'oauth_token' => $accessToken,
@@ -154,7 +159,7 @@ $params_checkin = array(
  
  $userprofile = $responseArray['response']; 
  //echo "this is the connnectionlist";
-  print_r($userprofile );
+  //print_r($userprofile );
     echo "Total Checkins <br>";
   print_r($userprofile ['checkins']['count']);
   
@@ -164,12 +169,12 @@ $params_checkin = array(
    
    foreach($b as $checkkey => $value)
     {
-     echo $checkkey ."value".$value;
+    // echo $checkkey ."value".$value;
 
        foreach($value as $test => $tvalue)
         {
          
-       	echo $test ."insidechecks".$tvalue;            
+       	//echo $test ."insidechecks".$tvalue;            
                 foreach($tvalue as $venue => $venuevalue)
                  {
 	              if($venue == 'venue')
@@ -189,5 +194,45 @@ $params_checkin = array(
 
  
 }
-   
+ */   
 ?>
+
+<html>
+<head>
+<script>
+function checkin_his()
+{
+  // alert("Welcome " + name );
+//document.getElementById("results").reset();
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("results").innerHTML=xmlhttp.responseText;
+    }
+  }
+xmlhttp.open("POST","checkinhistory.php",true);
+xmlhttp.send();
+}
+</script>
+</head>
+<body>
+
+
+<form>
+<table>
+<tr><h><button type="button" value=" " onclick="checkin_his()">Checkhistory</button></h>
+        <div id="results"></div></p></tr>
+
+ </table>
+    </form>
+    </body>
+ </html>

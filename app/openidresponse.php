@@ -2,16 +2,17 @@
   session_start();
 
   $url=$_SERVER['QUERY_STRING'];
-
   $responseURL = urldecode($url);
   $decodeURL =explode("&", $responseURL );
-  
+  $isMode = true;
   foreach($decodeURL as $key => $b)
   {
     $b = split('=', $b);
+     //echo "{$b[0]} value {$b[1]}\n";
       if($b[0]=='openid.mode'&& $b[1]=='cancel')
       {
-        header("Location:http://54.225.92.231/app/meetupfinder");
+          $isMode=false;
+          
       } 
       elseif($b[0]=='openid.ext1.value.email')
       {
@@ -39,6 +40,9 @@
       }
   } 
 
+  if($isMode)
+  {
+    
   // now check the DB for this user, by claimed_id
   mysql_connect("localhost", "root", "CSC9010") or die(mysql_error()); 
   mysql_select_db("meetupfinder_prod") or die(mysql_error()); 
@@ -63,7 +67,7 @@
   else
   {
     $_SESSION['newuser'] = "";
-/*
+/*  
     Print "<h1>Welcome back!  here is the info we have on you</h1>";
     Print "<table>";
       Print "<tr><td><b>Name</b></td><td>" .$results['name']. "</td></tr "; 
@@ -83,9 +87,14 @@
     $_SESSION['li_expires'] = $results['linkedin_expires'];
     $_SESSION['fs_token'] = $results['foursquare_token'];
     $_SESSION['fs_expires'] = $results['foursquare_expires'];
+   
     header('Location: /app/start.php');
     exit();
   }
+}
+else{
+     header("Location:http://54.225.92.231/app/meetupfinder");        
+    }
 
 ?>
 
@@ -107,9 +116,6 @@ function signout()
   <h3><b>claimed_id:</b><?php echo $_SESSION['claimed_id'] ?></h3>
   <p>Click the button to signout from google account and takes to home page</p>
 
-  <button onclick="signout()">Log Out</button>
-
-  <p id="demo"></p>
-
+  <button onclick="signout()">Log Out</button>  
 </body>
 </html>
