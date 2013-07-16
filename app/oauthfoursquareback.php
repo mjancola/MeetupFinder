@@ -56,5 +56,5 @@
   //Print "<p>QUERY=".$query."</p>";
   mysql_query($query);
 
-  header('Location: /get_foursquare_data.php');
+  header('Location: /app/get_foursquare_data.php');
 ?> 

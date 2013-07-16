@@ -28,7 +28,9 @@
   $all=$httpClient->currentResponse();
   $body=$all['body'];
   $resCode=$all['code'];
-  // print("<p>ResponseCode=$resCode</p>");
+
+   //print("<p>body=$body</p>");
+   //print("<p>ResponseCode=$resCode</p>");
 
   $responseArray = json_decode($body, TRUE);
   $friendsList = $responseArray['data'];

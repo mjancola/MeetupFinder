@@ -51,8 +51,8 @@ echo "<h3>The top 10 restaurants around ".$location." with a radius of 10 miles 
 
 function signout()
 {
-window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://54.225.92.231/app/meetupfinder";
-cds
+  window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://54.225.92.231/app/meetupfinder";
+ 
 }
 
 function checkin_here(name)
@@ -77,15 +77,12 @@ xmlhttp.open("GET","checkin.php?vote="+name,true);
 xmlhttp.send();
 }
 </script>
+<button style="position: absolute; top: 0; right: 0;background-color:#CD2222;color:white" onclick="signout()">Log Out</button>
 </head>
 <body>
 <marquee behavior="alternate" style="background-color:green;color:white">Press the restaurant to checkin to your Foursquare account </marquee>
 <form>
-<table>
-
-<div style="position: absolute; top: 0; right: 0;"> <button onclick="signout()">Log Out</button></div>
-
-
+<table> 
 <?php foreach ($connectionsList as $venue) 
   {
    //print_r($venue);

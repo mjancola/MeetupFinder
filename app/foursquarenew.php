@@ -35,7 +35,7 @@
 
     //print("<h1>access=".$_SESSION['access_token']."</h1>");
     //print("<h2>expires=".$_SESSION['expires']."</h2>");
-    header('Location: /app/get_foursquare_data.php');
+    header('Location: http://54.225.92.231/app/get_foursquare_data.php');
   }
 
 ?>
