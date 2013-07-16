@@ -1,7 +1,33 @@
 <?php
   session_start(); 
+
   require_once 'HTTP/Client.php';
-  //include 'http_client.inc';
+  
+ // echo $_SERVER['QUERY_STRING'];
+  $url=$_SERVER['QUERY_STRING'];
+  $decodeURL = urldecode($url);
+  $decodeURL =explode("&", $decodeURL );
+  var_dump($decodeURL );
+  $isAccepted=true;
+  echo $isAccepted."before";
+  foreach($decodeURL as $key => $b)
+  {
+     $b = split('=', $b);
+     if($b[0]=='error'&& $b[1]=='access_denied')
+     {
+        $isAccepted= FALSE;
+      }    
+ 
+  } 
+   
+  
+ if(!$isAccepted)
+  {
+     echo $isAccepted."isaccepted value";
+    header("Location: /app/gotLocation.php"); 
+  }
+ else
+ {  
   $code = $_GET['code'];
   $state = $_GET['state'];
 
@@ -55,4 +81,5 @@
   mysql_query($query);
 
   header('Location: /app/get_fb_data.php');
+}
 ?> 
