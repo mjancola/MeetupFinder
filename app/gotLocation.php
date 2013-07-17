@@ -4,8 +4,8 @@
 
   // save the location requested
   $_SESSION['location'] = $_POST['location'];
-  //$location = $_SESSION['location'];
-
+  $location = $_SESSION['location'];
+  echo $location;
   // print("<h2>location=$location</h2>");
  
   $liURL = (isset($_SERVER['HTTPS'])?'https://':'http://') .

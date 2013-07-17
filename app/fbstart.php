@@ -23,16 +23,17 @@
 
     // Output a webpage directing users to the $goToUrl after
     // they click a "Let's Go" button
-    
-    include 'fb_request_access.php';
+    echo "We dont have the fb token";
+    header("Location: $goToUrl");
+    //include 'fb_request_access.php';
   }
   else
   {
     // We have a token already, just do the query
-    $_SESSION['access_token'] = $_SESSION['fb_token'];
-    $_SESSION['expires'] = $_SESSION['fb_expires'];
+    //$_SESSION['access_token'] = $_SESSION['fb_token'];
+    //$_SESSION['expires'] = $_SESSION['fb_expires'];
 
-    //print("<h1>access=".$_SESSION['access_token']."</h1>");
+    //print("<h1>access=".$_SESSION['fb_token']."</h1>");
     //print("<h2>expires=".$_SESSION['expires']."</h2>");
     header('Location: /app/get_fb_data.php');
   }

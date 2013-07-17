@@ -3,9 +3,10 @@
   require_once 'HTTP/Client.php';
   //require_once 'http_client.inc';
   //define('SCOPE', 'r_basicprofile r_fullprofile r_network r_emailaddress rw_nus');
-  
+  $location = $_SESSION['location'];
   //$connectionsURL = 'https://api.foursquare.com/v2/venues/search?v=20130319&near=19333&categoryId=4bf58dd8d48988d14e941735&limit=10&radius=16093.4';
-    $connectionsURL = 'https://api.foursquare.com/v2/venues/search?v=20130319&near=Villanova,PA&categoryId=4bf58dd8d48988d14e941735&limit=10&radius=16093.4';
+    $connectionsURL = 'https://api.foursquare.com/v2/venues/search?v=20130319&near=Exton,PA&categoryId=4bf58dd8d48988d14e941735&limit=10&radius=16093.4';
+    //$connectionsURL = 'https://api.foursquare.com/v2/venues/search?v=20130319&near='.$location.'&categoryId=4bf58dd8d48988d14e941735&limit=10&radius=16093.4';
 
  print("<h2>$connectionsURL</h2>");
   
@@ -89,112 +90,58 @@ xmlhttp.send();
 		$name = $narray['name'];
 		// print_r($name);	echo "   --  ";
 		$location =  $narray['location'];	
-		//print_r($location['address']);
+		/*print_r($location['address']);
+              print_r($location['city']);              
+              print_r($location['state']);
+		print_r($location['cc']);
+              print_r($location['postalCode']);*/
+              $address=$location['address'].",".$location['city'].",".$location['state'].",".$location['cc'].",".$location['postalCode'];
 		print("<br>");
 		?>
 		
-		<tr><h><button type="button" value="<?php echo $venueid ?>" onclick="checkin_here(this.value)"><?php echo $name ?></button></h>
+		<tr><h><button type="button" value="<?php echo $venueid ?>" onclick="checkin_here(this.value)" style="width: 250px"><?php echo "<b>".$name."</b>"."@".$address;?></button></h>
+			<!--<h><button type="button" value="" ><?php echo $address; ?></button></h>-->
+
         <h><span id="<?php echo $venueid ?>"></span></p></h></tr>
     </table>
     </form>
     </body>
  </html>
+
 <?php }	
  
-
 break;
   }
 	  
-  //print("</table>"); 
- 
-  //if($count >= 1)
-  //print "<h2>$count of your connections stays in $placename, would you like to meet them?</h2>";   */
-
+  
   //bharath
  // echo "<BR><b><i><u> *** Hi Sashank I appended code to add checkin,retrieve the users checkin information and changed the url form pincode (very very small change ) --Bharath  results are below*** </u></i></b><BR><BR>";
 
 //*********//
 //TO checkin manually by passing a venueID
 
-$params_checkin= array(
+/*$params_checkin= array(
   'http'=>array(
     	'Content-Type'=>'application/x-www-form-urlencoded',
     'Accept'=>'text/html en\r\n' ,
     )                           
-);
+);*/
 
 //$addCheckinURL='https://api.foursquare.com/v2/checkins/add?oauth_token='.$accessToken.'&venueId=4b073aebf964a52031fa22e3&shout=bharathtest&v=20130713';
 //echo $addCheckinURL;
 //$httpClient = new Http_Client();
 //$userresponseRaw = $httpClient->post($addCheckinURL, $params_checkin );
-    //$addcheckinresp=$httpClient->currentResponse();
- //$user_body=$addcheckinresp['body'];
- // print "$user_body";
- $resCode=$addcheckinresp['code'];
- //print("<p>ResponseCode=$resCode</p>");
+//   $addcheckinresp=$httpClient->currentResponse();
+// $user_body=$addcheckinresp['body'];
+//  print "$user_body";
+// $resCode=$addcheckinresp['code'];
+// print("<p>ResponseCode=$resCode</p>");
 
   //$responseArray = json_decode($user_body, TRUE);
   //print_r( $responseArray );
 
 //********//
-/* $userinfoURL='https://api.foursquare.com/v2/users/self/checkins?';  //To retrieve Checkin information from user profile
-$params_checkin = array(
-    'method'=>'GET',
-    'oauth_token' => $accessToken,
-    'format' => 'json',
-    'v'=>'20130711'    
-      );
 
-  $httpClient = new Http_Client();
-  $userresponseRaw = $httpClient->get($userinfoURL, $params_checkin );
-
-  // var_dump($userresponseRaw);
-  $all=$httpClient->currentResponse();
-  $user_body=$all['body'];
-  //print "$user_body";
-  $resCode=$all['code'];
-  //print("<p>ResponseCode=$resCode</p>");
-
-   $responseArray = json_decode($user_body, TRUE);
- 
- $userprofile = $responseArray['response']; 
- //echo "this is the connnectionlist";
-  //print_r($userprofile );
-    echo "Total Checkins <br>";
-  print_r($userprofile ['checkins']['count']);
-  
- foreach($userprofile as $key => $b)
-{
-   //echo $key."hello".$b;
-   
-   foreach($b as $checkkey => $value)
-    {
-    // echo $checkkey ."value".$value;
-
-       foreach($value as $test => $tvalue)
-        {
-         
-       	//echo $test ."insidechecks".$tvalue;            
-                foreach($tvalue as $venue => $venuevalue)
-                 {
-	              if($venue == 'venue')
-                      {
-                            //echo $venue ."#venue#".$venuevalue;
-			         foreach($venuevalue as $vkey => $details)
-       	                  { 
-                                     if($vkey=='name')
- 					   echo "<BR>".$vkey."-->".$details."<BR>";
-				    }
-                       }			  
-              
-                 } 
-  
-        } 
-   } 
-
- 
-}
- */   
 ?>
 
 <html>

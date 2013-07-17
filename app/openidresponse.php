@@ -4,14 +4,14 @@
   $url=$_SERVER['QUERY_STRING'];
   $responseURL = urldecode($url);
   $decodeURL =explode("&", $responseURL );
-  $isMode = true;
+  $isOIDmode= true;
   foreach($decodeURL as $key => $b)
   {
     $b = split('=', $b);
      //echo "{$b[0]} value {$b[1]}\n";
       if($b[0]=='openid.mode'&& $b[1]=='cancel')
       {
-          $isMode=false;
+          $isOIDmode=false;
           
       } 
       elseif($b[0]=='openid.ext1.value.email')
@@ -40,7 +40,7 @@
       }
   } 
 
-  if($isMode)
+  if($isOIDmode)
   {
     
   // now check the DB for this user, by claimed_id
@@ -67,7 +67,7 @@
   else
   {
     $_SESSION['newuser'] = "";
-/*  
+  
     Print "<h1>Welcome back!  here is the info we have on you</h1>";
     Print "<table>";
       Print "<tr><td><b>Name</b></td><td>" .$results['name']. "</td></tr "; 
@@ -79,14 +79,18 @@
       Print "<tr><td><b>Foursquare Token</b></td><td>" .$results['foursquare_token']. "</td></tr "; 
       Print "<tr><td><b>Foursquare Expires</b></td><td>" .$results['foursquare_expires']. "</td></tr "; 
     Print "</table>"; 
-*/
-    // set the session parameters
+
+    
+  
+   // set the session parameters
     $_SESSION['fb_token'] = $results['facebook_token'];
     $_SESSION['fb_expires'] = $results['facebooke_expires'];
     $_SESSION['li_token'] = $results['linkedin_token'];
     $_SESSION['li_expires'] = $results['linkedin_expires'];
     $_SESSION['fs_token'] = $results['foursquare_token'];
     $_SESSION['fs_expires'] = $results['foursquare_expires'];
+    
+   //echo "facetoken".$_SESSION['fb_token']; to check whether session is released or not in sessionRelease.php
    
     header('Location: /app/start.php');
     exit();
@@ -97,25 +101,3 @@ else{
     }
 
 ?>
-
-<html>
-<head>
-<script>
-function signout()
-{
-  document.location.href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://54.225.92.231/app/meetupfinder";
-}
-</script>
-</head>
-<body>
-
-  <h3><b>Full Response:</b><?php echo $responseURL ?></h3>
-  <h3><b>Name:</b><?php echo $_SESSION['name'] ?></h3>
-  <h3><b>Country:</b><?php echo $_SESSION['country'] ?></h3>
-  <h3><b>Email:</b><?php echo $_SESSION['email'] ?></h3>
-  <h3><b>claimed_id:</b><?php echo $_SESSION['claimed_id'] ?></h3>
-  <p>Click the button to signout from google account and takes to home page</p>
-
-  <button onclick="signout()">Log Out</button>  
-</body>
-</html>

@@ -1,33 +1,8 @@
 <?php
   session_start(); 
-
   require_once 'HTTP/Client.php';
-  
- // echo $_SERVER['QUERY_STRING'];
-  $url=$_SERVER['QUERY_STRING'];
-  $decodeURL = urldecode($url);
-  $decodeURL =explode("&", $decodeURL );
-  //var_dump($decodeURL );
-   $isAccepted=true;
-  echo $isAccepted."before";
-  foreach($decodeURL as $key => $b)
-  {
-     $b = split('=', $b);
-     if($b[0]=='error'&& $b[1]=='access_denied')
-     {
-        $isAccepted= FALSE;
-      }    
- 
-  } 
-   
-  
- if(!$isAccepted)
-  {
-     echo $isAccepted."isaccepted value";
-     header("Location: /app/gotLocation.php"); 
-  }
- else
- {  
+  //include 'http_client.inc';
+  echo $_SESSION['QUERY_STRING'];
   $code = $_GET['code'];
   $state = $_GET['state'];
 
@@ -60,12 +35,12 @@
   print("<h2>body=$body</h2>");
   print("<h2>resCode=$resCode</h2>");
   print("<h1>response=$responseRaw</h1>");
- // print("<h1>code=$code</h1>");
+  print("<h1>code=$code</h1>");
 
   // helper automatically parses into variables named like the query keys  
   parse_str($body);
-  $_SESSION['fb_token'] = $access_token;
-  $_SESSION['fb_expires'] = $expires;
+  $_SESSION['access_token'] = $access_token;
+  $_SESSION['expires'] = $expires;
   $claimed_id = $_SESSION['claimed_id'];
  
   
@@ -81,5 +56,4 @@
   mysql_query($query);
 
   header('Location: /app/get_fb_data.php');
-}
 ?> 

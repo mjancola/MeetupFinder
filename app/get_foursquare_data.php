@@ -7,14 +7,14 @@
     //$connectionsURL = 'https://api.foursquare.com/v2/venues/search?v=20130319&near=Villanova,PA&categoryId=4bf58dd8d48988d14e941735&limit=10&radius=16093.4';
     $location=$_SESSION['location'];
     $connectionsURL = 'https://api.foursquare.com/v2/venues/search?v=20130319&near='.$location.'&categoryId=4bf58dd8d48988d14e941735&limit=10&radius=16093.4';
-
-   //print("<h2>$connectionsURL</h2>");
+    echo $location;
+     print("<h2>$connectionsURL</h2>");
  
-   $accessToken = $_SESSION['access_token'];
+   $accessToken =  $_SESSION['fs_token'];
  //print("<p>accessToken=$accessToken</p>\n"); 
   $redirectUriPath = '/get_foursquare_data.php';
 
-  //Linkedin requires these
+  //Foursquare requires these
   $params = array(
     'oauth_token' => $accessToken,
     'format' => 'json',
@@ -51,10 +51,10 @@ echo "<h3>The top 10 restaurants around ".$location." with a radius of 10 miles 
 
 function signout()
 {
-  window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://54.225.92.231/app/meetupfinder";
  
+  window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://54.225.92.231/app/meetupfinder";
+  
 }
-
 function checkin_here(name)
 {
   // alert("Welcome " + name );

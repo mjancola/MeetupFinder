@@ -1,6 +1,6 @@
 <?php
  session_start(); 
- $accessToken = $_SESSION['access_token'];
+ $accessToken = $_SESSION['fs_token'];
 require_once 'HTTP/Client.php';
  $userinfoURL='https://api.foursquare.com/v2/users/self/checkins?';  //To retrieve Checkin information from user profile
 $params_checkin = array(

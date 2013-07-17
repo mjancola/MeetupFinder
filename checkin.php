@@ -19,11 +19,14 @@ $userresponseRaw = $httpClient->post($addCheckinURL, $params_checkin );
        
 
 $addcheckinresp=$httpClient->currentResponse();
+ $all=$httpClient->currentResponse();
+  $body=$addcheckinresp['body'];
+  print "$body";
  
  $resCode=$addcheckinresp['code'];
- //print("<p>ResponseCode=$resCode</p>");
- $response="success";
+ print("<p>ResponseCode=$resCode</p>");
+ $response="Checkin success";
 echo $response;
-  //$responseArray = json_decode($user_body, TRUE);
-  //print_r( $responseArray );
+  $responseArray = json_decode($user_body, TRUE);
+  print_r( $responseArray );
 ?>

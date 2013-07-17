@@ -1,5 +1,6 @@
 
-<?php echo $_SERVER['REQUEST_URI'];
+<?php 
+//echo $_SERVER['REQUEST_URI'];
 $url=$_SERVER['QUERY_STRING'];
  // echo gettype($_SERVER['QUERY_STRING']);
   // echo gettype(parse_url($_SERVER['QUERY_STRING']));    
@@ -30,7 +31,7 @@ foreach($decodeURL as $key => $b)
 <script>
 function signout()
 {
-document.location.href="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://54.225.92.231/openid/meetupfinder";
+window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://54.225.92.231/openid/meetupfinder";
 }
 </script>
 </head>

@@ -8,7 +8,7 @@
 // print("<h2>$connectionsURL</h2>");
   
   $accessToken = $_SESSION['li_token'];
-// print("<p>accessToken=$accessToken</p>\n"); 
+ print("<p>accessToken=$accessToken</p>\n"); 
   $redirectUriPath = '/app/get_linkedin_data.php';
 
   //Linkedin requires these
@@ -32,8 +32,11 @@
  $responseArray = json_decode($body, TRUE);
  $connectionsList = $responseArray['values'];  
  $placename = $_SESSION['location'];
-// print "$placename";
- print "<h2>List of your connections who stays in $placename:</h2>"; 
+  $splitted = split(",", $location);
+  $placename= $splitted[0];
+  $countryfromUser = $splitted[1];
+ print "$placename";
+   
  $count = 0;
  print ("<table>");
   //echo "<table><thead><tr><th>Connection Name</th><th>Present Location</th></tr$
@@ -43,7 +46,6 @@
     $hometown = $person['location']['name'];
     if(preg_match("/$placename/i", $hometown) && $placename != "")
     {
-    //print "<h2>List of your connections who stays in $placename</h2>";
     print ("<tr><td>".$name."</td><td>".$hometown."</td></tr>");
     $count= $count+1;
     }       
@@ -53,7 +55,8 @@
   //$goToUrl = (isset($_SERVER['HTTPS'])?'https://':'http://') .  $_SERVER['HTTP_HOST'] . $redirectUriPath1;
   if($count >= 1)
   {
-  print "<h2>$count connections  stays at $placename</h2>";
+
+  print "<h2>you have $count connections at $placename</h2>";
   
   ?>
   
@@ -66,9 +69,9 @@
   }
    else
   {
-  print "<h3>$count</h3>";
   Print "<h2>You have no connections at $placename</h2>";
   ?>
+  <h1>You have entered a wrong location<h1>
 <h2>Please go back and enter a valid location</h2>
 <input type="button" onClick="return window.location='<?php echo 'http://54.225.92.231/app/start.php';?>';" value="Go Back" />
 <?php   

@@ -11,7 +11,7 @@ $authopts = array(
 //echo $_SERVER['QUERY_STRING'];
 $venue=$_GET["vote"];
 //echo "hi".$venue;
-$accessToken = $_SESSION['access_token'];
+$accessToken = $_SESSION['fs_token'];
 $addCheckinURL='https://api.foursquare.com/v2/checkins/add?oauth_token='.$accessToken.'&venueId='.$venue.'&v=20130713';
 //echo $addCheckinURL;
 $httpClient = new Http_Client();

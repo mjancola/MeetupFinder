@@ -31,11 +31,11 @@
   else
   {
     // We have a token already, just do the query
-    $_SESSION['access_token'] = $_SESSION['li_token'];
-    $_SESSION['expires'] = $_SESSION['li_expires'];
+    $_SESSION['li_token'];
+    $_SESSION['li_expires'];
 
-    print("<h1>access=".$_SESSION['access_token']."</h1>");
-    print("<h2>expires=".$_SESSION['expires']."</h2>");
+    print("<h1>access=".$_SESSION['li_token']."</h1>");
+    print("<h2>expires=".$_SESSION['li_expires']."</h2>");
     header('Location: /app/get_linkedin_data.php');
   }
 

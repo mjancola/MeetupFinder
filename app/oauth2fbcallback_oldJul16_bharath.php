@@ -7,8 +7,8 @@
   $url=$_SERVER['QUERY_STRING'];
   $decodeURL = urldecode($url);
   $decodeURL =explode("&", $decodeURL );
-  //var_dump($decodeURL );
-   $isAccepted=true;
+  var_dump($decodeURL );
+  $isAccepted=true;
   echo $isAccepted."before";
   foreach($decodeURL as $key => $b)
   {
@@ -24,7 +24,7 @@
  if(!$isAccepted)
   {
      echo $isAccepted."isaccepted value";
-     header("Location: /app/gotLocation.php"); 
+    header("Location: /app/gotLocation.php"); 
   }
  else
  {  
@@ -60,12 +60,12 @@
   print("<h2>body=$body</h2>");
   print("<h2>resCode=$resCode</h2>");
   print("<h1>response=$responseRaw</h1>");
- // print("<h1>code=$code</h1>");
+  print("<h1>code=$code</h1>");
 
   // helper automatically parses into variables named like the query keys  
   parse_str($body);
-  $_SESSION['fb_token'] = $access_token;
-  $_SESSION['fb_expires'] = $expires;
+  $_SESSION['access_token'] = $access_token;
+  $_SESSION['expires'] = $expires;
   $claimed_id = $_SESSION['claimed_id'];
  
   

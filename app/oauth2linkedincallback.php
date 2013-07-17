@@ -37,12 +37,12 @@
   
   $token = json_decode($body);
   
-    $_SESSION['access_token'] = $token->access_token; // guard this!
-    $_SESSION['expires']   = $token->expires_in; // relative time (in seconds)
+    $_SESSION['li_token'] = $token->access_token; // guard this!
+    $_SESSION['li_expires']   = $token->expires_in; // relative time (in seconds)
     $_SESSION['expires_at']   = time() + $_SESSION['expires_in']; // absolute time
 
-  $access_token = $_SESSION['access_token'];
-  $expires = $_SESSION['expires'];
+  $access_token = $_SESSION['li_token'] ;
+  $expires = $_SESSION['li_expires'];
   $claimed_id = $_SESSION['claimed_id'];
                     
   Print "<h1>access=$access_token</h1>";

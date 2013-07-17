@@ -10,8 +10,8 @@
  
   //print("<h2>$friendsURL</h2>"); 
   
-  $accessToken = $_SESSION['access_token'];
-  $expires = $_SESSION['expires'];
+  $accessToken = $_SESSION['fb_token'];
+  $expires = $_SESSION['fb_expires'];
   // print("<p>expires=$expires</p>\n");  
   $redirectUriPath = '/app/get_fb_data.php';
 
@@ -23,14 +23,46 @@
 
   $httpClient = new Http_Client();
   $responseRaw = $httpClient->get($friendsURL, $params);
-
-
   $all=$httpClient->currentResponse();
   $body=$all['body'];
   $resCode=$all['code'];
+  // echo $body;
+   
+//To check if response has error -Might be the session token is invalid bcz application is deauthorized,session expired,or changed the password
+  if(array_key_exists('code', $all))      
+       { 
+              // echo $all['code'];
+               if($all['code']==400)//has an error in response
+		 {  
+                 
+                  echo "hello";
+                  $responseArray = json_decode($body, TRUE);
+                  print_r($responseArray['error']['message']);
+		   $authorizationUrlBase = 'https://www.facebook.com/dialog/oauth';
+                 $redirectUri4auth = '/app/oauth2fbcallback.php';
 
-   //print("<p>body=$body</p>");
-   //print("<p>ResponseCode=$resCode</p>");
+   		  //Facebook requires client_id = app_id and a redirect uri
+  		   $queryParams = array(
+  					   'client_id' => '146448285541021',  // app_id from Facebook
+    		 			 'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') .
+ 	        			 $_SERVER['HTTP_HOST'] . $redirectUri4auth ,
+      					// optional params
+   					   'state' => $_SESSION['state'],
+  					    'response_type' => 'code',
+     						 'scope' => 'friends_hometown'
+                                      );
+
+     	            $goToUrl = $authorizationUrlBase . '?' . http_build_query($queryParams);
+      
+                  //echo $goToUrl;
+                  header("Location:$goToUrl ");
+       
+                 
+ 		  }
+         }
+
+  // print("<p>body=$body</p>");
+  //print("<p>ResponseCode=$resCode</p>");
 
   $responseArray = json_decode($body, TRUE);
   $friendsList = $responseArray['data'];
@@ -38,14 +70,66 @@
 
 
   $name = $_SESSION['name'];
+   //echo $name."this is name";
   $location = $_SESSION['location'];
-
+  $splitted = split(",", $location);
+  $cityfromUser = $splitted[0];
+  $countryfromUser = $splitted[1];
+   print_r("$cityfromUser,$countryfromUser");
   //print("<h2>name=$name</h2>");
   //print("<h2>location=$location</h2>");
   print("<h2><b>$name</b>, here are your connections from Facebook, residing in <b>$location</b></h2>");
   print("<table>");
-  $count = count($friendsList);
-  for($i=$count; $i > 0; $i--) {
+  $numofFriends=0;
+  $filteredFrnds = array();
+  $totalfriends = count($friendsList);
+  print(" <font size=\"5\"><i> Hi $name , you got total </font><font size=\"30\">$totalfriends </font> <font size=\"5\"> FB friends </font> </i>");
+   //var_dump($friendsList);
+  foreach ($friendsList as $friend) 
+  {
+    //var_dump($friend);
+
+         if(array_key_exists('hometown', $friend))
+             {
+              //echo "friend info from response".$friend['hometown']['name']."<BR>";
+               $b = split(',',$friend['hometown']['name']);
+               
+               //echo "{$b[0]} value {$b[1]}\n";
+
+               if(strtolower($b[0])== strtolower($cityfromUser))
+                {
+               //echo $friend['name']."@".$friend['hometown']['name'];
+               $filteredFrnds[$friend['name']] =$friend['hometown']['name'];
+              // echo "<BR>";
+               $numofFriends=$numofFriends+1;
+                }
+             }elseif(array_key_exists('location', $friend)){
+               //echo "friend info from response".$friend['location']['name']."<BR>";
+               $b = split(',',$friend['location']['name']);
+               
+               //echo "{$b[0]} value {$b[1]}\n";
+
+               if(strtolower($b[0])== strtolower($cityfromUser))
+                {
+               //echo $friend['name']."@".$friend['location']['name'];
+               $filteredFrnds[$friend['name']] =$friend['location']['name'];
+              // echo "<BR>";
+               $numofFriends=$numofFriends+1;
+                }
+                 
+          }
+     }
+   //var_dump($filteredFrnds);
+   print_r( "<font size=\"5\"> and </font> <font size=\"20\"> $numofFriends </font><font size=\"5\">(friends|friend) at $location  !!!!! <BR>*please see below* </font><BR><BR>");
+   $i=1;
+   foreach($filteredFrnds as $name=>$fromplace)
+    { 
+     print_r(" $i => $name  @  $fromplace");
+     $i++;
+     }
+
+
+  /*for($i=$count; $i > 0; $i--) {
   //foreach ($friendsList as $friend) {
     // do something with the friend, but you only have id and name
     $id = $friendsList[$i]['id'];
@@ -59,25 +143,51 @@
       unset($friendsList[$i]);
     }
     
-  }
+  }*/
   print("</table>");
-  $afterSize=count($friendsList);
+ // $afterSize=count($friendsList);
   //print("<p>AfterSize=$afterSize</p>");
 
   // not sure how to pull the current userid - not sure if we even need to
-  $user_id = $responseArray['data']['user_id'];
-  $_SESSION['user_id'] = $user_id;;
+ // $user_id = $responseArray['data']['user_id'];
+  //$_SESSION['user_id'] = $user_id;;
   //print("<p>Client=$user_id</p>");
 
-  $redirectUriPath = '/linkedin.php';
-  $goToUrl = (isset($_SERVER['HTTPS'])?'https://':'http://') .  $_SERVER['HTTP_HOST'] . $redirectUriPath;
+ // $redirectUriPath = '/linkedin.php';
+  //$goToUrl = (isset($_SERVER['HTTPS'])?'https://':'http://') .  $_SERVER['HTTP_HOST'] . $redirectUriPath;
+   
+ $countoffilterdfrnds=  count($filteredFrnds );
 
-
-  if($afterSize >= 1)
+  if($countoffilterdfrnds>= 1)
   {
-    print "<h3>Total count=$afterSize</h3><h2> Would you like to find a place to meet them?</h2>";
-    $goToUrl = 'http://54.225.92.231/app/foursquarenew.php';
-  }  
+    print "<h2> <BR> Would you like to find a place to meet them?</h2>";
+    $url2Connect4square = 'http://54.225.92.231/app/foursquarenew.php';
+    //header("Location:$url2Connect4square");
+   
 ?>
-  <input type="button" onClick="return window.location='<?php echo $goToUrl;?>';" value="Yes" /> 
-  <input type="button"  value="No" />
+  <html>
+<head>
+<script>
+
+function connectFourSq()
+{
+window.location="http://54.225.92.231/app/foursquarenew.php";
+}
+
+</script>
+</head>
+<body>
+
+<button  value "connectFS" onclick="connectFourSq()">Yes</button>
+ <button value="back" onclick="return window.location='http://54.225.92.231/app/start.php';">No--GoBack</button>
+<?php 
+}else
+  {
+   ?>
+
+ <button onclick="return window.location='http://54.225.92.231/app/start.php';">goBack</button> to enter different location
+ </body>
+</html>
+<?php
+   }
+?>

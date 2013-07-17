@@ -31,12 +31,12 @@
   
   $token = json_decode($body);
   
-    $_SESSION['access_token'] = $token->access_token; // guard this!
-    $_SESSION['expires']   = $token->expires_in; // relative time (in seconds)
+    $_SESSION['fs_token'] = $token->access_token; // guard this!
+    $_SESSION['fs_expires']  = $token->expires_in; // relative time (in seconds)
     $_SESSION['expires_at']   = time() + $_SESSION['expires_in']; // absolute time
 
-  $access_token = $_SESSION['access_token'];
-  $expires = $_SESSION['expires'];
+  $access_token = $_SESSION['fs_token'];
+  $expires = $_SESSION['fs_expires'];
   $claimed_id = $_SESSION['claimed_id'];
 
   // Foursquare doesn't seem to be setting the expires
