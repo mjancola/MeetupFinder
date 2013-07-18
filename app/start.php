@@ -9,11 +9,9 @@
   {
     Print "<h1>Welcome back, ".$_SESSION['name']."</h1>";
   }
-  Print "<table><tr><td>";
+  
   include 'getLocation.php';
   
-  Print"</td></tr></table></body></html>";
-
   Print "<hr>"; 
   Print "<br />";
   Print "<h2>(DEBUG) Here is the info we have on you:</h2>";
@@ -28,6 +26,7 @@
       Print "<tr><td><b>Foursquare Token</b></td><td>" .$_SESSION['fs_token']. "</td></tr> "; 
       Print "<tr><td><b>Foursquare Expires</b></td><td>" .$_SESSION['fs_expires']. "</td></tr> "; 
     Print "</table>"; 
+  Print "</body></html>";
 
 
 ?>

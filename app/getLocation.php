@@ -27,14 +27,8 @@ text-align:center;
 <br>
 <br>
 <form action="gotLocation.php" method="post" name="loc" onsubmit="return validateForm()">
-
-<p style="font-family:arial;color:white;font-size:30px;">
-<br /><b> Enter a location where you would like to meetup with your friends:</b>
-Location <input type="text" name="location"> (Ex:wayne,pa)
-<br><input type="submit" value="Let's Go!"> 
-</p>
-</body>
-</html> 
+<center><h1> Enter a location where you would like to meetup with your friends:</h1></center>
+<center><h2>Location (ex:philadelphia) <input type="text" name="location"><input type="submit" value="Let's Go!"> </h2></center>
 </form>
 
 <script type="text/javascript">
