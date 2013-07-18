@@ -151,9 +151,10 @@
   }
   else
   {
+    print "<h2>No Connections found.  Search for venues anyway?</h2>";
 ?>
-    <button onclick="return window.location='http://54.225.92.231/app/start.php';">goBack</button> to enter different location
     <button  value "connectFS" onclick="connectFourSq()">Yes</button>
+    <button onclick="return window.location='http://54.225.92.231/app/start.php';">goBack</button> to enter different location
 <?php
   }
   print "</body></html>";

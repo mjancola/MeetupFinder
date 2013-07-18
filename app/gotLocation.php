@@ -12,7 +12,8 @@
 		$_SERVER['HTTP_HOST'] .  '/app/fbstart.php';
   $fsqURL = (isset($_SERVER['HTTPS'])?'https://':'http://') .
                 $_SERVER['HTTP_HOST'] .  '/foursquarennew.php'; 
-  Print "<html><body bgcolor=#CCFFFF>";
+
+  Print "<html><body bgcolor=#CCFF99>";
 
   Print "<h1>Meetup Finder</h1>";
   print "<html><body bgcolor=#CCFFFF>";
@@ -27,3 +28,15 @@
   
   Print"</body></html>";
 ?>
+<script>
+
+function home()
+{
+  window.location="http://54.225.92.231/app/start.php";
+}
+function signout()
+{
+  window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://54.225.92.231/app/meetupfinder";
+}
+</script>
+
