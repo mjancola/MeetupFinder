@@ -1,3 +1,32 @@
+
+<html>
+<body>
+<style>
+body 
+{
+  background: url(wix.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+{
+text-align:center;
+}
+
+</style>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
 <?php
   session_start();
   require_once 'HTTP/Client.php';
@@ -13,8 +42,7 @@
 
   //include 'google.php';
 ?>
-<h2>Welcome to the Meetup Finder</h2>
-<p>Press a button to login using your account with of our affiliates</p>
+<center><h1>Press a button to login using your account with of our affiliates</h1></center>
+<center><a href=http://54.225.92.231/app/openidauth.php ><img src="google.jpg" > </a></center>
 
-<a href=http://54.225.92.231/app/openidauth.php ><img src="google.jpg" > </a>
 
