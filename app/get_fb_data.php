@@ -75,9 +75,16 @@
   $splitted = split(",", $location);
   $cityfromUser = $splitted[0];
   $countryfromUser = $splitted[1];
-   print_r("$cityfromUser,$countryfromUser");
+   //print_r("$cityfromUser,$countryfromUser");
+
+  print "<html><body bgcolor=#CCFFFF>";
+  print "<button style='background-color:#CD2222;color:white' onclick='home()'>Home</button>";
+  print "&nbsp;";
+  print "<button style='background-color:#CD2222;color:white' onclick='signout()'>Log Out</button>";
+
   //print("<h2>name=$name</h2>");
   //print("<h2>location=$location</h2>");
+
   print("<h2><b>$name</b>, here are your connections from Facebook, residing in <b>$location</b></h2>");
   print("<table>");
   $numofFriends=0;
@@ -125,6 +132,7 @@
    foreach($filteredFrnds as $name=>$fromplace)
     { 
      print_r(" $i => $name  @  $fromplace");
+     echo "<BR>";
      $i++;
      }
 
@@ -168,6 +176,14 @@
   <html>
 <head>
 <script>
+function home()
+{
+  window.location="http://54.225.92.231/app/start.php";
+}
+function signout()
+{
+  window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://54.225.92.231/app/meetupfinder";
+}
 
 function connectFourSq()
 {

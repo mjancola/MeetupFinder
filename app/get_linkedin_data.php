@@ -30,10 +30,19 @@
   //print("<p>ResponseCode=$resCode</p>");
 
  $responseArray = json_decode($body, TRUE);
- $connectionsList = $responseArray['values'];  
- $placename = $_SESSION['location'];
-// print "$placename";
- print "<h2>List of your connections who stays in $placename:</h2>"; 
+ $connectionsList = $responseArray['values']; 
+//added by bharath to split city 
+// $placename = $_SESSION['location'];
+  $location = $_SESSION['location'];
+  $splitted = split(",", $location);
+  $placename= $splitted[0];
+  $countryfromUser = $splitted[1];
+ 
+ print "<html><body bgcolor=#CCFFFF>";
+ print "<button style='background-color:#CD2222;color:white' onclick='home()'>Home</button>"; 
+ print "&nbsp;";
+ print "<button style='background-color:#CD2222;color:white' onclick='signout()'>Log Out</button>";
+ print "<h2>List of your connections who stays in '$placename':</h2>"; 
  $count = 0;
  print ("<table>");
   //echo "<table><thead><tr><th>Connection Name</th><th>Present Location</th></tr$
@@ -73,8 +82,20 @@
 <input type="button" onClick="return window.location='<?php echo 'http://54.225.92.231/app/start.php';?>';" value="Go Back" />
 <?php   
   }
+  print "</body></html>";
       
 ?>
+<script>
+
+function home()
+{
+  window.location="http://54.225.92.231/app/start.php";
+}
+function signout()
+{
+  window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://54.225.92.231/app/meetupfinder";
+}
+</script>
 
 
 

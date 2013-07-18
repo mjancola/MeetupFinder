@@ -9,7 +9,7 @@
   {
     Print "<h1>Welcome back, ".$_SESSION['name']."</h1>";
   }
-  
+  print "<button style='background-color:#CD2222;color:white' onclick='signout()'>Log Out</button>";
   include 'getLocation.php';
   
   Print "<hr>"; 
@@ -31,4 +31,10 @@
 
 
 ?>
+<script>
+function signout()
+{
+  window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://54.225.92.231/app/meetupfinder";
+}
+</script>
 
