@@ -29,6 +29,7 @@ text-align:center;
 
 <?php
   session_start();
+  session_unset();
   require_once 'HTTP/Client.php';
 
   // unique session variable to passed to Authenication server as our state

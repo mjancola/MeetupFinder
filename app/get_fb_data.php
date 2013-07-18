@@ -136,33 +136,7 @@
      $i++;
      }
 
-
-  /*for($i=$count; $i > 0; $i--) {
-  //foreach ($friendsList as $friend) {
-    // do something with the friend, but you only have id and name
-    $id = $friendsList[$i]['id'];
-    $name = $friendsList[$i]['name'];
-    $hometown = $friendsList[$i]['hometown']['name'];
-    //if ($hometown != "") {
-    if(stristr($hometown,$location) !== FALSE) {
-      print ("<tr><td>".$name."</td><td>".$hometown."</td></tr>");
-    }
-    else {
-      unset($friendsList[$i]);
-    }
-    
-  }*/
-  print("</table>");
- // $afterSize=count($friendsList);
-  //print("<p>AfterSize=$afterSize</p>");
-
-  // not sure how to pull the current userid - not sure if we even need to
- // $user_id = $responseArray['data']['user_id'];
-  //$_SESSION['user_id'] = $user_id;;
-  //print("<p>Client=$user_id</p>");
-
- // $redirectUriPath = '/linkedin.php';
-  //$goToUrl = (isset($_SERVER['HTTPS'])?'https://':'http://') .  $_SERVER['HTTP_HOST'] . $redirectUriPath;
+ print("</table>");
    
  $countoffilterdfrnds=  count($filteredFrnds );
 
@@ -170,11 +144,20 @@
   {
     print "<h2> <BR> Would you like to find a place to meet them?</h2>";
     $url2Connect4square = 'http://54.225.92.231/app/foursquarenew.php';
-    //header("Location:$url2Connect4square");
-   
 ?>
-  <html>
-<head>
+    <button  value "connectFS" onclick="connectFourSq()">Yes</button>
+    <button value="back" onclick="return window.location='http://54.225.92.231/app/start.php';">No--GoBack</button>
+<?php 
+  }
+  else
+  {
+?>
+    <button onclick="return window.location='http://54.225.92.231/app/start.php';">goBack</button> to enter different location
+    <button  value "connectFS" onclick="connectFourSq()">Yes</button>
+<?php
+  }
+  print "</body></html>";
+?>
 <script>
 function home()
 {
@@ -189,21 +172,4 @@ function connectFourSq()
 {
 window.location="http://54.225.92.231/app/foursquarenew.php";
 }
-
 </script>
-</head>
-<body>
-
-<button  value "connectFS" onclick="connectFourSq()">Yes</button>
- <button value="back" onclick="return window.location='http://54.225.92.231/app/start.php';">No--GoBack</button>
-<?php 
-}else
-  {
-   ?>
-
- <button onclick="return window.location='http://54.225.92.231/app/start.php';">goBack</button> to enter different location
- </body>
-</html>
-<?php
-   }
-?>

@@ -4,15 +4,24 @@
   //require_once 'http_client.inc';
   //define('SCOPE', 'r_basicprofile r_fullprofile r_network r_emailaddress rw_nus');
   
-    //$connectionsURL = 'https://api.foursquare.com/v2/venues/search?v=20130319&near=Villanova,PA&categoryId=4bf58dd8d48988d14e941735&limit=10&radius=16093.4';
-    $location=$_SESSION['location'];
-    $connectionsURL = 'https://api.foursquare.com/v2/venues/search?v=20130319&near='.$location.'&categoryId=4bf58dd8d48988d14e941735&limit=10&radius=16093.4';
-    echo $location;
-     print("<h2>$connectionsURL</h2>");
+  //$connectionsURL = 'https://api.foursquare.com/v2/venues/search?v=20130319&near=Villanova,PA&categoryId=4bf58dd8d48988d14e941735&limit=10&radius=16093.4';
+  $location=$_SESSION['location'];  
+  
+  // replace spaces with % encodings!!!!
+  $urlLocation = urlencode($location);
+
+  print "<html><body bgcolor=#CCFFFF>";
+  print "<button style='background-color:#CD2222;color:white' onclick='home()'>Home</button>";
+  print "&nbsp;";
+  print "<button style='background-color:#CD2222;color:white' onclick='signout()'>Log Out</button>";
+  //echo $location;
+  //print("<h2>$connectionsURL</h2>");
  
-   $accessToken =  $_SESSION['fs_token'];
- //print("<p>accessToken=$accessToken</p>\n"); 
-  $redirectUriPath = '/get_foursquare_data.php';
+  $connectionsURL = "https://api.foursquare.com/v2/venues/search?v=20130319&near='".$urlLocation."'&categoryId=4bf58dd8d48988d14e941735&limit=10&radius=16093.4";
+
+  $accessToken =  $_SESSION['fs_token'];
+  //print("<p>accessToken=$accessToken</p>\n"); 
+  $redirectUriPath = '/app/get_foursquare_data.php';
 
   //Foursquare requires these
   $params = array(
@@ -22,27 +31,24 @@
       $_SERVER['HTTP_HOST'] . $redirectUriPath,
       );
 
+
   $httpClient = new Http_Client();
   $responseRaw = $httpClient->get($connectionsURL, $params);
-  print "<html><body bgcolor=#CCFFFF>";
-  print "<button style='background-color:#CD2222;color:white' onclick='home()'>Home</button>";
-  print "&nbsp;";
-  print "<button style='background-color:#CD2222;color:white' onclick='signout()'>Log Out</button>";
-
   $all=$httpClient->currentResponse();
   $body=$all['body'];
-  print "$body";
+
+  //print "$body";
   $resCode=$all['code'];
-  print("<p>ResponseCode=$resCode</p>");
+  //print("<p>ResponseCode=$resCode</p>");
 
  $responseArray = json_decode($body, TRUE);
  $connectionsList = $responseArray['response']; 
- echo "this is the connnectionlist";
+ //echo "this is the connnectionlist";
  $count = count($connectionsList);
  //echo $count;
- print_r($connectionsList['venues']);
+ //print_r($connectionsList['venues']);
  
- print_r($connectionsList);
+ //print_r($connectionsList);
 
  //print("<table>");
 echo "<h3>The top 10 American restaurants around ".$location." with a radius of 10 miles are : </h3> "; //print("/n");
@@ -86,11 +92,12 @@ xmlhttp.send();
 <marquee behavior="alternate" style="background-color:green;color:white">Press the restaurant to checkin to your Foursquare account </marquee>
 <form>
 <table> 
-<?php foreach ($connectionsList as $venue) 
+<?php 
+  foreach ($connectionsList as $venue) 
   {
-   //print_r($venue);
-     foreach($venue as $narray)
-	  { 
+  //print_r($venue);
+    foreach($venue as $narray)
+    { 
               $venueid = $narray['id'];
 		// print_r($venueid );
              	echo "  &nbsp  ";
@@ -121,9 +128,9 @@ xmlhttp.send();
              }
 
 		
-             // $address=$location['address'].",".$location['city'].",".$location['state'].",".$location['cc'].",".$location['postalCode'];
-		print("<br>");
-		?>
+    // $address=$location['address'].",".$location['city'].",".$location['state'].",".$location['cc'].",".$location['postalCode'];
+    //print("<p>&nbsp;</p>");
+?>
 		
 		<tr><h><BR><button type="button" value="<?php echo $venueid ?>" onclick="checkin_here(this.value)" style="width: 250px" ><?php echo "<b>".$name."</b>"."\n@".$address;?></button></h>
         <h><span id="<?php echo $venueid ?>"></span></p></h></tr>

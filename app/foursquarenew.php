@@ -25,16 +25,13 @@
 
     // Output a webpage directing users to the $goToUrl after
     // they click a "Let's Go" button
-  echo "four square is  not set in our app this line is from foursquarenew.php";
-   // header("Location:$goToUrl");
+    echo "four square is  not set in our app this line is from foursquarenew.php";
+    // header("Location:$goToUrl");
     include 'access_request_templatefoursquare.php';
   }
   else
   {
     // We have a token already, just do the query
-     $_SESSION['fs_token'];
-     $_SESSION['fs_expires'];
-
     //print("<h1>access=".$_SESSION['fs_token']."</h1>");
     //print("<h2>expires=".$_SESSION['fs_expires']."</h2>");
     header('Location: http://54.225.92.231/app/get_foursquare_data.php');
