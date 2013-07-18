@@ -14,7 +14,7 @@
   
   Print "<hr>"; 
   Print "<br />";
-  Print "<h2>(DEBUG) Here is the info we have on you:</h2>";
+/*  Print "<h2>(DEBUG) Here is the info we have on you:</h2>";
 
     Print "<table>";
       Print "<tr><td><b>Claimed_id</b></td><td>" .$_SESSION['claimed_id']. "</td></tr> "; 
@@ -26,6 +26,7 @@
       Print "<tr><td><b>Foursquare Token</b></td><td>" .$_SESSION['fs_token']. "</td></tr> "; 
       Print "<tr><td><b>Foursquare Expires</b></td><td>" .$_SESSION['fs_expires']. "</td></tr> "; 
     Print "</table>"; 
+*/
   Print "</body></html>";
 
 
