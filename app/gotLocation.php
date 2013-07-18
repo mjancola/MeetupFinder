@@ -5,8 +5,6 @@
   // save the location requested
   $_SESSION['location'] = $_POST['location'];
   $location = $_SESSION['location'];
-  echo $location;
-  // print("<h2>location=$location</h2>");
  
   $liURL = (isset($_SERVER['HTTPS'])?'https://':'http://') .
 		$_SERVER['HTTP_HOST'] .  '/app/linkedinnew.php';
@@ -14,10 +12,11 @@
 		$_SERVER['HTTP_HOST'] .  '/app/fbstart.php';
   $fsqURL = (isset($_SERVER['HTTPS'])?'https://':'http://') .
                 $_SERVER['HTTP_HOST'] .  '/foursquarennew.php'; 
- Print "<tr><td>&nbsp;</td></tr>";
-  Print "<tr><td>fbURL=".$fbURL."</td></tr>";
-  Print "<tr><td>&nbsp;</td></tr><tr><td>";
-  include 'partnerButtons.php';
+  Print "<html><body bgcolor=#99FFFF><br><br>";
+  print("<h2>Choose a social platform to search for friends in '".$location."'</h2>");
+  Print "<a href= '".$fbURL."'><img src='facebook.jpg' ></a>";
+  Print "&nbsp;";
+  Print "<a href= '".$liURL."'><img src='linkedin.png' ></a>";
   
-  Print"</td></tr></table></body></html>";
+  Print"</body></html>";
 ?>
