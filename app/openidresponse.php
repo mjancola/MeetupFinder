@@ -1,8 +1,8 @@
 <?php 
   // clear the session
-  session_unset();
   session_start();
-  
+  session_unset();
+
   $url=$_SERVER['QUERY_STRING'];
   $responseURL = urldecode($url);
   $decodeURL =explode("&", $responseURL );

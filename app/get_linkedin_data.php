@@ -2,12 +2,12 @@
   session_start();      
   require_once 'HTTP/Client.php';
   //require_once 'http_client.inc';
-  define('SCOPE', 'r_basicprofile r_fullprofile r_network r_emailaddress rw_nus');
+  define('SCOPE', 'r_basicprofile r_fullprofile r_network');
   
   $connectionsURL = 'https://api.linkedin.com/v1/people/~/connections:(firstName,location:(name))';
 // print("<h2>$connectionsURL</h2>");
   
-  $accessToken = $_SESSION['li_token'];
+ $accessToken = $_SESSION['access_token'];
 // print("<p>accessToken=$accessToken</p>\n"); 
   $redirectUriPath = '/app/get_linkedin_data.php';
 
@@ -25,20 +25,22 @@
 
   $all=$httpClient->currentResponse();
   $body=$all['body'];
-  //print "$body";
+//  print "$body";
   $resCode=$all['code'];
-  //print("<p>ResponseCode=$resCode</p>");
+ // print("<p>ResponseCode=$resCode</p>");
 
  $responseArray = json_decode($body, TRUE);
- $connectionsList = $responseArray['values']; 
+ $connectionsList = $responseArray['values'];
+//print_r($connectionsList); 
 //added by bharath to split city 
 // $placename = $_SESSION['location'];
   $location = $_SESSION['location'];
   $splitted = split(",", $location);
   $placename= $splitted[0];
   $countryfromUser = $splitted[1];
+//print"$placename";
  
- print "<html><body bgcolor=#CCFFFF>";
+ print "<html><body bgcolor=#CCFF99>";
  print "<button style='background-color:#CD2222;color:white' onclick='home()'>Home</button>"; 
  print "&nbsp;";
  print "<button style='background-color:#CD2222;color:white' onclick='signout()'>Log Out</button>";
@@ -75,12 +77,11 @@
   }
    else
   {
-  print "<h3>$count</h3>";
-  Print "<h2>You have no connections at $placename</h2>";
-  ?>
-<h2>Please go back and enter a valid location</h2>
-<input type="button" onClick="return window.location='<?php echo 'http://54.225.92.231/app/start.php';?>';" value="Go Back" />
-<?php   
+    print "<h2>No Connections found.  Search for venues anyway?</h2>";
+?>
+    <button  value "connectFS" onclick="connectFourSq()">Yes</button>
+    <button onclick="return window.location='http://54.225.92.231/app/start.php';">goBack</button> to enter different location
+<?php
   }
   print "</body></html>";
       

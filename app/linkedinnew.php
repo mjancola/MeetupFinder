@@ -1,7 +1,7 @@
 <?php
   session_start();
 
-  if ((!isset($_SESSION['li_token'])) || (empty($_SESSION['li_token'])) || ($_SESSION['li_token'] == ''))
+  if ((!isset($_SESSION['access_token'])) || (empty($_SESSION['access_token'])) || ($_SESSION['access_token'] == ''))
   {
     define('SCOPE', 'r_fullprofile r_network r_basicprofile r_emailaddress rw_nus' );
   
@@ -26,16 +26,16 @@
 
     // Output a webpage directing users to the $goToUrl after
     // they click a "Let's Go" button
-    include 'access_request_templatelinkedin.php';
+header("Location: $goToUrl");
   }
   else
   {
     // We have a token already, just do the query
-    $_SESSION['li_token'];
-    $_SESSION['li_expires'];
+    $_SESSION['access_token'];
+    $_SESSION['access_expires'];
 
-    print("<h1>access=".$_SESSION['li_token']."</h1>");
-    print("<h2>expires=".$_SESSION['li_expires']."</h2>");
+    print("<h1>access=".$_SESSION['access_token']."</h1>");
+    print("<h2>expires=".$_SESSION['expires_in']."</h2>");
     header('Location: /app/get_linkedin_data.php');
   }
 

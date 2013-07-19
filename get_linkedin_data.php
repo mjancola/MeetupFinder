@@ -31,7 +31,11 @@
 
  $responseArray = json_decode($body, TRUE);
  $connectionsList = $responseArray['values'];  
- $placename = $_SESSION['location'];
+//added by bharath
+ $location = $_SESSION['location'];
+ $splitted = split(",", $location);
+  $placename = $splitted[0];
+  $countryfromUser = $splitted[1];
    
  $count = 0;
  

@@ -10,7 +10,7 @@
   // replace spaces with % encodings!!!!
   $urlLocation = urlencode($location);
 
-  print "<html><body bgcolor=#CCFF99>";
+  print "<html><body bgcolor=#CCFFFF>";
   print "<button style='background-color:#CD2222;color:white' onclick='home()'>Home</button>";
   print "&nbsp;";
   print "<button style='background-color:#CD2222;color:white' onclick='signout()'>Log Out</button>";
@@ -40,20 +40,6 @@
   //print "$body";
   $resCode=$all['code'];
   //print("<p>ResponseCode=$resCode</p>");
-if($resCode !=200)
-{
-     $errorResponseArray = json_decode($body, TRUE);
-      $errorBody=$errorResponseArray ['meta'];
-      //var_dump($errorBody);
-      echo "<BR><BR><BR>ErrorCode:".$errorBody['code'];
-      echo "<BR>ErrorType:".$errorBody['errorType'];
-      echo "<BR>ErrorType:".$errorBody['errorDetail'];
-
-     //print_r("Response:$errorResponseArray ");
-     //print_r("<p>ResponseCode=$resCode</p>");
-
- }else
-{
 
  $responseArray = json_decode($body, TRUE);
  $connectionsList = $responseArray['response']; 
@@ -201,12 +187,70 @@ xmlhttp.send();
 break;
   }
 	  
-} 
+  
   //bharath
- 
+ // echo "<BR><b><i><u> *** Hi Sashank I appended code to add checkin,retrieve the users checkin information and changed the url form pincode (very very small change ) --Bharath  results are below*** </u></i></b><BR><BR>";
+
 //*********//
 //********//
+/* $userinfoURL='https://api.foursquare.com/v2/users/self/checkins?';  //To retrieve Checkin information from user profile
+$params_checkin = array(
+    'method'=>'GET',
+    'oauth_token' => $accessToken,
+    'format' => 'json',
+    'v'=>'20130711'    
+      );
+
+  $httpClient = new Http_Client();
+  $userresponseRaw = $httpClient->get($userinfoURL, $params_checkin );
+
+  // var_dump($userresponseRaw);
+  $all=$httpClient->currentResponse();
+  $user_body=$all['body'];
+  //print "$user_body";
+  $resCode=$all['code'];
+  //print("<p>ResponseCode=$resCode</p>");
+
+   $responseArray = json_decode($user_body, TRUE);
+ 
+ $userprofile = $responseArray['response']; 
+ //echo "this is the connnectionlist";
+  //print_r($userprofile );
+    echo "Total Checkins <br>";
+  print_r($userprofile ['checkins']['count']);
   
+ foreach($userprofile as $key => $b)
+{
+   //echo $key."hello".$b;
+   
+   foreach($b as $checkkey => $value)
+    {
+    // echo $checkkey ."value".$value;
+
+       foreach($value as $test => $tvalue)
+        {
+         
+       	//echo $test ."insidechecks".$tvalue;            
+                foreach($tvalue as $venue => $venuevalue)
+                 {
+	              if($venue == 'venue')
+                      {
+                            //echo $venue ."#venue#".$venuevalue;
+			         foreach($venuevalue as $vkey => $details)
+       	                  { 
+                                     if($vkey=='name')
+ 					   echo "<BR>".$vkey."-->".$details."<BR>";
+				    }
+                       }			  
+              
+                 } 
+  
+        } 
+   } 
+
+ 
+}
+ */   
 ?>
 
 <html>
@@ -241,7 +285,7 @@ xmlhttp.send();
 
 <form>
 <table>
-<tr><h><center><BR>press <button type="button" style="background-color:#C0C0C0;color:white value=" " onclick="checkin_his()">CheckinHistory</button> to see the checkin history</center></h>
+<tr><h><center>press <button type="button" style="background-color:#C0C0C0;color:white value=" " onclick="checkin_his()">CheckinHistory</button> to see the checkin history</center></h>
         <div id="results"></div></p></tr>
 
  </table>

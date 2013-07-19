@@ -28,25 +28,25 @@
   $all=$httpClient->currentResponse();
   $body=$all['body'];
   $resCode=$all['code'];
-  print("<h2>body=$body</h2>");
-  print("<h2>resCode=$resCode</h2>");
-  print("<h1>response=$responseRaw</h1>");
-  print("<h1>code=$code</h1>");
+   print("<h2>body=$body</h2>");
+ // print("<h2>resCode=$resCode</h2>");
+ // print("<h1>response=$responseRaw</h1>");
+ // print("<h1>code=$code</h1>");
 
   // helper automatically parses into variables named like the query keys  
   
   $token = json_decode($body);
   
-    $_SESSION['li_token'] = $token->access_token; // guard this!
-    $_SESSION['li_expires']   = $token->expires_in; // relative time (in seconds)
+    $_SESSION['access_token'] = $token->access_token; // guard this!
+    $_SESSION['access_expires']   = $token->expires_in; // relative time (in seconds)
     $_SESSION['expires_at']   = time() + $_SESSION['expires_in']; // absolute time
 
-  $access_token = $_SESSION['li_token'] ;
-  $expires = $_SESSION['li_expires'];
+  $access_token = $_SESSION['access_token'] ;
+  $expires = $_SESSION['access_expires'];
   $claimed_id = $_SESSION['claimed_id'];
                     
-  Print "<h1>access=$access_token</h1>";
-  Print "<h2>expires=$expires</h2>"; 
+ // Print "<h1>access=$access_token</h1>";
+// Print "<h2>expires=$expires</h2>"; 
   Print "<h2>claimed_id=".$claimed_id."</h2";
 
   // save the values to the DB!
@@ -55,8 +55,6 @@
   $query="UPDATE users SET linkedin_token='".$access_token."', linkedin_expires=".$expires." where claimed_id ='".$claimed_id."'";
   Print "<p>QUERY=".$query."</p>";
   mysql_query($query);
-
-  
-  header('Location: /app/get_linkedin_data.php');
+ header('Location: /app/get_linkedin_data.php');
 ?> 
 

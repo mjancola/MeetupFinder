@@ -10,7 +10,7 @@
   // replace spaces with % encodings!!!!
   $urlLocation = urlencode($location);
 
-  print "<html><body bgcolor=#CCFF99>";
+  print "<html><body bgcolor=#CCFFFF>";
   print "<button style='background-color:#CD2222;color:white' onclick='home()'>Home</button>";
   print "&nbsp;";
   print "<button style='background-color:#CD2222;color:white' onclick='signout()'>Log Out</button>";
@@ -40,20 +40,6 @@
   //print "$body";
   $resCode=$all['code'];
   //print("<p>ResponseCode=$resCode</p>");
-if($resCode !=200)
-{
-     $errorResponseArray = json_decode($body, TRUE);
-      $errorBody=$errorResponseArray ['meta'];
-      //var_dump($errorBody);
-      echo "<BR><BR><BR>ErrorCode:".$errorBody['code'];
-      echo "<BR>ErrorType:".$errorBody['errorType'];
-      echo "<BR>ErrorType:".$errorBody['errorDetail'];
-
-     //print_r("Response:$errorResponseArray ");
-     //print_r("<p>ResponseCode=$resCode</p>");
-
- }else
-{
 
  $responseArray = json_decode($body, TRUE);
  $connectionsList = $responseArray['response']; 
@@ -79,13 +65,6 @@ function signout()
 {
   window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://54.225.92.231/app/meetupfinder";
 }
-
-function popitup(url) {
-	newwindow=window.open(url,'name','height=800,width=800');
-	if (window.focus) {newwindow.focus()}
-	return false;
-}
-
 function checkin_here(name)
 {
   // alert("Welcome " + name );
@@ -112,7 +91,7 @@ xmlhttp.send();
 <body bgcolor=#CCFFFF>
 <marquee behavior="alternate" style="background-color:green;color:white">Press the restaurant to checkin to your Foursquare account </marquee>
 <form>
-<table boder="1"> 
+<table> 
 <?php 
   foreach ($connectionsList as $venue) 
   {
@@ -127,8 +106,6 @@ xmlhttp.send();
 		$location =  $narray['location'];	
 		//print_r($location['address']);
               $address = NULL;
-              $restUrl;
-              $menu;
              if(array_key_exists('address', $location))
              {
                $address=$address.$location['address'];
@@ -150,63 +127,87 @@ xmlhttp.send();
                $address=$address.",".$location['postalCode'];
              }
 
-           /* new Changes bharath */
-
-            if(array_key_exists('canonicalUrl', $narray))
-              {
-              //print_r($narray['canonicalUrl']);
-              $restUrl=$narray['canonicalUrl'];
-              }
-             if(array_key_exists('url', $narray))
-		{
-             // print_r($narray['url']);
-              }  
-             if(array_key_exists('menu', $narray))
-		{
-             if(isset($narray['menu']['mobileUrl']))
-                  {
-  			 //print_r($narray['menu']['mobileUrl']);
- 			$menu=$narray['menu']['mobileUrl'];
-                   }
-               else{
-                      //print_r($narray['menu']['url']);
-                      $menu=$narray['menu']['url'];
-                   }
-              }
-              if(array_key_exists('phone', $narray['contact']))
-              {
-              //print_r($narray['contact']['formattedPhone']);
-              $address=$address.",".$narray['contact']['formattedPhone'];
-              }
-
-
 		
     // $address=$location['address'].",".$location['city'].",".$location['state'].",".$location['cc'].",".$location['postalCode'];
     //print("<p>&nbsp;</p>");
 ?>
 		
-		<tr><td><h><button type="button" value="<?php echo $venueid ?>" onclick="checkin_here(this.value)" style="width: 250px" ><?php echo "<b>".$name."</b>"."\n@".$address;?></button></h>
-              <h><span id="<?php echo $venueid ?>"></span></p></h></td>
-              <td><h><button style="background-color:#E0DDDD;color:#2398C9;width: 160px;font-size:15px" onclick="return popitup('<?php echo $restUrl;?>')" <?php echo "<b>".$name."</b>&nbsp"?>'s website</button></h></td>
-              <td> <align="center"  border = "1" cellpadding="1" ><td  align="center" width="10"><style type="text/css">.a2 A:link {text-decoration: none} .a2 A:visited {text-decoration: none} .a2 A:active {text-decoration: none} .a2 A:hover {text-decoration: underline ; color: red;}</style><span class="a2"><a href="<?php echo $menu;?>" onclick="return popitup('<?php echo $menu;?>')">Menu</a></span><br></td>
-             </tr>              
-    
-<?php }?>	
-       </table>
+		<tr><h><BR><button type="button" value="<?php echo $venueid ?>" onclick="checkin_here(this.value)" style="width: 250px" ><?php echo "<b>".$name."</b>"."\n@".$address;?></button></h>
+        <h><span id="<?php echo $venueid ?>"></span></p></h></tr>
+    </table>
     </form>
     </body>
  </html>
+<?php }	
  
-<?php
+
 break;
   }
 	  
-} 
+  
   //bharath
- 
+ // echo "<BR><b><i><u> *** Hi Sashank I appended code to add checkin,retrieve the users checkin information and changed the url form pincode (very very small change ) --Bharath  results are below*** </u></i></b><BR><BR>";
+
 //*********//
 //********//
+/* $userinfoURL='https://api.foursquare.com/v2/users/self/checkins?';  //To retrieve Checkin information from user profile
+$params_checkin = array(
+    'method'=>'GET',
+    'oauth_token' => $accessToken,
+    'format' => 'json',
+    'v'=>'20130711'    
+      );
+
+  $httpClient = new Http_Client();
+  $userresponseRaw = $httpClient->get($userinfoURL, $params_checkin );
+
+  // var_dump($userresponseRaw);
+  $all=$httpClient->currentResponse();
+  $user_body=$all['body'];
+  //print "$user_body";
+  $resCode=$all['code'];
+  //print("<p>ResponseCode=$resCode</p>");
+
+   $responseArray = json_decode($user_body, TRUE);
+ 
+ $userprofile = $responseArray['response']; 
+ //echo "this is the connnectionlist";
+  //print_r($userprofile );
+    echo "Total Checkins <br>";
+  print_r($userprofile ['checkins']['count']);
   
+ foreach($userprofile as $key => $b)
+{
+   //echo $key."hello".$b;
+   
+   foreach($b as $checkkey => $value)
+    {
+    // echo $checkkey ."value".$value;
+
+       foreach($value as $test => $tvalue)
+        {
+         
+       	//echo $test ."insidechecks".$tvalue;            
+                foreach($tvalue as $venue => $venuevalue)
+                 {
+	              if($venue == 'venue')
+                      {
+                            //echo $venue ."#venue#".$venuevalue;
+			         foreach($venuevalue as $vkey => $details)
+       	                  { 
+                                     if($vkey=='name')
+ 					   echo "<BR>".$vkey."-->".$details."<BR>";
+				    }
+                       }			  
+              
+                 } 
+  
+        } 
+   } 
+
+ 
+}
+ */   
 ?>
 
 <html>
@@ -241,7 +242,7 @@ xmlhttp.send();
 
 <form>
 <table>
-<tr><h><center><BR>press <button type="button" style="background-color:#C0C0C0;color:white value=" " onclick="checkin_his()">CheckinHistory</button> to see the checkin history</center></h>
+<tr><h><center>press <button type="button" style="background-color:#C0C0C0;color:white value=" " onclick="checkin_his()">CheckinHistory</button> to see the checkin history</center></h>
         <div id="results"></div></p></tr>
 
  </table>

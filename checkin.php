@@ -26,7 +26,7 @@ $addcheckinresp=$httpClient->currentResponse();
  $resCode=$addcheckinresp['code'];
  print("<p>ResponseCode=$resCode</p>");
  $response="Checkin success";
-echo $response;
+//echo $response;
   $responseArray = json_decode($user_body, TRUE);
   print_r( $responseArray );
 ?>

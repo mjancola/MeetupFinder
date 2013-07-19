@@ -77,7 +77,7 @@
   $countryfromUser = $splitted[1];
    //print_r("$cityfromUser,$countryfromUser");
 
-  print "<html><body bgcolor=#CCFFFF>";
+  print "<html><body bgcolor=#CCFF99  >";
   print "<button style='background-color:#CD2222;color:white' onclick='home()'>Home</button>";
   print "&nbsp;";
   print "<button style='background-color:#CD2222;color:white' onclick='signout()'>Log Out</button>";

@@ -3,9 +3,9 @@
   require_once 'HTTP/Client.php';
   //require_once 'http_client.inc';
   //define('SCOPE', 'r_basicprofile r_fullprofile r_network r_emailaddress rw_nus');
-  $location = $_SESSION['location'];
+  //$location = $_SESSION['location'];
   //$connectionsURL = 'https://api.foursquare.com/v2/venues/search?v=20130319&near=19333&categoryId=4bf58dd8d48988d14e941735&limit=10&radius=16093.4';
-    $connectionsURL = 'https://api.foursquare.com/v2/venues/search?v=20130319&near=Exton,PA&categoryId=4bf58dd8d48988d14e941735&limit=10&radius=16093.4';
+    $connectionsURL = 'https://api.foursquare.com/v2/venues/search?v=20130319&near=Hyderabad,India&categoryId=4bf58dd8d48988d14e941735&limit=10&radius=16093.4';
     //$connectionsURL = 'https://api.foursquare.com/v2/venues/search?v=20130319&near='.$location.'&categoryId=4bf58dd8d48988d14e941735&limit=10&radius=16093.4';
 
  print("<h2>$connectionsURL</h2>");
@@ -30,7 +30,7 @@
   $body=$all['body'];
   //print "$body";
   $resCode=$all['code'];
-  //print("<p>ResponseCode=$resCode</p>");
+  print("<p>ResponseCode=$resCode</p>");
 
  $responseArray = json_decode($body, TRUE);
  $connectionsList = $responseArray['response']; 
@@ -49,6 +49,13 @@ echo "Venues ID &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp  Name  &nbsp&
 <html>
 <head>
 <script>
+
+function popitup(url) {
+	newwindow=window.open(url,'name','height=600,width=600');
+	if (window.focus) {newwindow.focus()}
+	return false;
+}
+
 function checkin_here(name)
 {
   // alert("Welcome " + name );
@@ -82,9 +89,10 @@ xmlhttp.send();
  
  foreach ($connectionsList as $venue) 
   {
-   //print_r($venue);
+    // print_r($venue);
      foreach($venue as $narray)
-	  { 
+	  {  
+            // print_r($narray);
               $venueid = $narray['id'];
 		 //print_r($venueid );	echo "  &nbsp  ";
 		$name = $narray['name'];
@@ -95,20 +103,54 @@ xmlhttp.send();
               print_r($location['state']);
 		print_r($location['cc']);
               print_r($location['postalCode']);*/
-              $address=$location['address'].",".$location['city'].",".$location['state'].",".$location['cc'].",".$location['postalCode'];
+              $restUrl;
+              $restphone;
+              $menu;
+              if(array_key_exists('canonicalUrl', $narray))
+              {
+              //print_r($narray['canonicalUrl']);
+              $restUrl=$narray['canonicalUrl'];
+              }
+             if(array_key_exists('url', $narray))
+		{
+             // print_r($narray['url']);
+              }  
+             if(array_key_exists('menu', $narray))
+		{
+             if(isset($narray['menu']['mobileUrl']))
+                  {
+  			 print_r($narray['menu']['mobileUrl']);
+ 			$menu=$narray['menu']['mobileUrl'];
+                   }
+               else{
+                      print_r($narray['menu']['url']);
+                      $menu=$narray['menu']['url'];
+                   }
+              }
+              if(array_key_exists('phone', $narray['contact']))
+              {
+              //print_r($narray['contact']['formattedPhone']);
+              $restphone=$narray['contact']['formattedPhone'];
+              }
+            
+             $address=$location['address'].",".$location['city'].",".$location['state'].",".$location['cc'].",".$location['postalCode'].",phno:".$restphone;
 		print("<br>");
 		?>
 		
-		<tr><h><button type="button" value="<?php echo $venueid ?>" onclick="checkin_here(this.value)" style="width: 250px"><?php echo "<b>".$name."</b>"."@".$address;?></button></h>
+		<tr><h><button type="button"   value="<?php echo $venueid ?>" onclick="checkin_here(this.value)" style="width: 250px"><?php echo "<b>".$name."</b>"."@".$address;?></button></h>
 			<!--<h><button type="button" value="" ><?php echo $address; ?></button></h>-->
+ 			<h><button style="background-color:#E0DDDD;color:#2398C9;width: 150px;font-size:15px" onclick="window.open('<?php echo $restUrl;?>');"> <?php echo "<b>".$name."</b>&nbsp"?>'s website</button></h>
+                     <a href ='<?php echo $menu;?>'> see menu </a></h>
+                      <align="center" cellpadding="10" border="1"><tr><td bgcolor="#FFFFFF" align="center" width="200"><style type="text/css">.a2 A:link {text-decoration: none} .a2 A:visited {text-decoration: none} .a2 A:active {text-decoration: none} .a2 A:hover {text-decoration: underline ; color: red;}</style><span class="a2"><a href="<?php echo $menu;?>" onclick="return popitup('<?php echo $menu;?>')">Menu</a></span></td></tr><br>
+                <!--<h style="color:#2398C9;font-size:15px" ><a href ='<?php echo $restUrl;?>');'> <?php echo "<b>".$name."</b>&nbsp"?>'s website</a></h>-->
+                <!--<h><a href="<?php echo $restUrl ?>"><?php echo $name;  ?></a> </h>-->
+              <h><span id="<?php echo $venueid ?>"></span></p></h></tr>
+</table>
+</form>
+</body>
+</html>
 
-        <h><span id="<?php echo $venueid ?>"></span></p></h></tr>
-    </table>
-    </form>
-    </body>
- </html>
-
-<?php }	
+   <?php break;}	
  
 break;
   }

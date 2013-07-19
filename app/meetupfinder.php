@@ -11,12 +11,13 @@ body
   background-size: cover;
 }
 
-
+P
 {
 text-align:center;
 }
 
 </style>
+
 <br>
 <br>
 <br>
@@ -43,7 +44,12 @@ text-align:center;
 
   //include 'google.php';
 ?>
-<center><h1>Press a button to login using your account with of our affiliates</h1></center>
+
+<p style="font-family:arial;color:white;font-size:30px;">
+<b>Press a button to login using your account with of our affiliates</b>
 <center><a href=http://54.225.92.231/app/openidauth.php ><img src="google.jpg" > </a></center>
 
 
+</p>
+</body>
+</html> 
