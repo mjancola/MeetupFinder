@@ -18,8 +18,8 @@
   $accessTokenExchangeParams = array(
     'grant_type' => 'authorization_code',
     'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') . $redirectUriPath,
-    'client_id' => 'www', 
-    'client_secret' => 'ccc',
+    'client_id' => 'vvv', 
+    'client_secret' => 'uuu',
     'code' => $code);
 
   $httpClient = new Http_Client();
@@ -36,12 +36,12 @@
   
   $token = json_decode($body);
   
-  $_SESSION['access_token'] = $token->access_token; // guard this!
-  $_SESSION['access_expires']   = $token->expires_in; // relative time (in seconds)
-  $_SESSION['expires_at']   = time() + $_SESSION['expires_in']; // absolute time
+  $_SESSION['li_token'] = $token->access_token; // guard this!
+  $_SESSION['li_expires']   = $token->expires_in; // relative time (in seconds)
+  $_SESSION['expires_at']   = time() + $_SESSION['li_expires']; // absolute time
 
-  $access_token = $_SESSION['access_token'] ;
-  $expires = $_SESSION['access_expires'];
+  $li_token = $_SESSION['li_token'] ;
+  $li_expires = $_SESSION['li_expires'];
   $claimed_id = $_SESSION['claimed_id'];
                     
  // Print "<h1>access=$access_token</h1>";
@@ -51,7 +51,7 @@
   // save the values to the DB!
   mysql_connect("localhost", "root", "") or die(mysql_error()); 
   mysql_select_db("meetupfinder_prod") or die(mysql_error()); 
-  $query="UPDATE users SET linkedin_token='".$access_token."', linkedin_expires=".$expires." where claimed_id ='".$claimed_id."'";
+  $query="UPDATE users SET linkedin_token='".$li_token."', linkedin_expires=".$li_expires." where claimed_id ='".$claimed_id."'";
   Print "<p>QUERY=".$query."</p>";
   mysql_query($query);
   header('Location: /app/get_linkedin_data.php');

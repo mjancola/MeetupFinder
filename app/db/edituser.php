@@ -58,7 +58,7 @@ else // ADDING NEW or UPDATING - this is a SUBMIT
 
   // Print "NAME:".$name." FBTOKEN:". $fbtoken." FBEXP:".$fbexpires." LITOKEN:".$litoken." LIEXP:".$liexpires." FSTOKEN:".$fstoken." FSEXP".$fsexpires;
   // Connect
-  mysql_connect("localhost", "root", "CSC9010") or die(mysql_error()); 
+  mysql_connect("localhost", "root", "") or die(mysql_error()); 
   mysql_select_db("meetupfinder_prod") or die(mysql_error()); 
 
   // Is this an update?

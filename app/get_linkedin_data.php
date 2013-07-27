@@ -7,7 +7,7 @@
   $connectionsURL = 'https://api.linkedin.com/v1/people/~/connections:(firstName,location:(name))';
 // print("<h2>$connectionsURL</h2>");
   
- $accessToken = $_SESSION['access_token'];
+ $accessToken = $_SESSION['li_token'];
 // print("<p>accessToken=$accessToken</p>\n"); 
   $redirectUriPath = 'meetup.hopto.org/app/get_linkedin_data.php';
 

@@ -1,7 +1,7 @@
 <?php
   session_start();
 
-  if ((!isset($_SESSION['access_token'])) || (empty($_SESSION['access_token'])) || ($_SESSION['access_token'] == ''))
+  if ((!isset($_SESSION['li_token'])) || (empty($_SESSION['li_token'])) || ($_SESSION['li_token'] == ''))
   {
     define('SCOPE', 'r_fullprofile r_network r_basicprofile r_emailaddress rw_nus' );
   
@@ -12,10 +12,8 @@
 
     // LinkedIn requires client_id = app_id and a redirect uri
     $queryParams = array(
-      'client_id' => 'www',  // app_id from LinkedIn
-      'client_secret' => 'ccc',
-      //'client_id' => '4szyuwih9i83',  // app_id from LinkedIn
-      //'client_secret' => '29sIwayaMjIBwW31',
+      'client_id' => 'xxx',  // app_id from LinkedIn
+      'client_secret' => 'yyy',
       'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') . $redirectUriPath,
               
       // optional params
@@ -27,16 +25,16 @@
 
     // Output a webpage directing users to the $goToUrl after
     // they click a "Let's Go" button
-header("Location: $goToUrl");
+    header("Location: $goToUrl");
   }
   else
   {
     // We have a token already, just do the query
-    $_SESSION['access_token'];
-    $_SESSION['access_expires'];
+    $_SESSION['li_token'];
+    $_SESSION['li_expires'];
 
-    print("<h1>access=".$_SESSION['access_token']."</h1>");
-    print("<h2>expires=".$_SESSION['expires_in']."</h2>");
+    print("<h1>access=".$_SESSION['li_token']."</h1>");
+    print("<h2>expires=".$_SESSION['li_expires']."</h2>");
     header('Location: /app/get_linkedin_data.php');
   }
 

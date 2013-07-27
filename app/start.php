@@ -29,8 +29,8 @@
     // set or reset the session parameters
     $_SESSION['fb_token'] = $results['facebook_token'];
     $_SESSION['fb_expires'] = $results['facebooke_expires'];
-    $_SESSION['access_token'] = $results['linkedin_token'];
-    $_SESSION['expires'] = $results['linkedin_expires'];
+    $_SESSION['li_token'] = $results['linkedin_token'];
+    $_SESSION['li_expires'] = $results['linkedin_expires'];
     $_SESSION['fs_token'] = $results['foursquare_token'];
     $_SESSION['fs_expires'] = $results['foursquare_expires'];
     
