@@ -18,8 +18,10 @@
   $accessTokenExchangeParams = array(
     'grant_type' => 'authorization_code',
     'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') . $redirectUriPath,
-    'client_id' => 'www', 
-    'client_secret' => 'ccc',
+    'client_id' => '8kq4mhd5zyg1', 
+    //'client_id' => '4szyuwih9i83', 
+    //'client_secret' => '29sIwayaMjIBwW31',
+    'client_secret' => 'DB5xp8FWOu2ux914',
     'code' => $code);
 
   $httpClient = new Http_Client();

@@ -49,7 +49,7 @@
   }
   else
   {
-     header("Location:http://54.225.92.231/app/meetupfinder");        
+     header("Location:http://meetup.hopto.org/app/meetupfinder");        
   }
 
 ?>

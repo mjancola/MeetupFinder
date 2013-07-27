@@ -10,7 +10,7 @@
 
     // Facebook requires client_id = app_id and a redirect uri
     $queryParams = array(
-      'client_id' => 'xxx',  // app_id from Facebook
+      'client_id' => '146448285541021',  // app_id from Facebook
       'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') . $redirectUriPath,
       //'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') .
       //		$_SERVER['HTTP_HOST'] . $redirectUriPath,

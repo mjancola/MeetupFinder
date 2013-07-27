@@ -1,7 +1,7 @@
 <?php
   session_start();
   // refetch the data on this user (in case something has expired)
-  mysql_connect("localhost", "root", "CSC9010") or die(mysql_error()); 
+  mysql_connect("localhost", "root", "") or die(mysql_error()); 
   mysql_select_db("meetupfinder_prod") or die(mysql_error()); 
   $data = mysql_query("SELECT * FROM users where claimed_id='" . $_SESSION['claimed_id'] . "'") or die(mysql_error());  
   $results = mysql_fetch_array( $data );
@@ -61,7 +61,7 @@
 <script>
 function signout()
 {
-  window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://54.225.92.231/app/meetupfinder";
+  window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://meetup.hopto.org/app/meetupfinder.php";
 }
 </script>
 

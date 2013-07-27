@@ -143,10 +143,10 @@
   if($countoffilterdfrnds>= 1)
   {
     print "<h2> <BR> Would you like to find a place to meet them?</h2>";
-    $url2Connect4square = 'http://54.225.92.231/app/foursquarenew.php';
+    $url2Connect4square = 'http://meetup.hopto.org/app/foursquarenew.php';
 ?>
     <button  value "connectFS" onclick="connectFourSq()">Yes</button>
-    <button value="back" onclick="return window.location='http://54.225.92.231/app/start.php';">No--GoBack</button>
+    <button value="back" onclick="return window.location='http://meetup.hopto.org/app/start.php';">No--GoBack</button>
 <?php 
   }
   else
@@ -154,7 +154,7 @@
     print "<h2>No Connections found.  Search for venues anyway?</h2>";
 ?>
     <button  value "connectFS" onclick="connectFourSq()">Yes</button>
-    <button onclick="return window.location='http://54.225.92.231/app/start.php';">goBack</button> to enter different location
+    <button onclick="return window.location='http://meetup.hopto.org/app/start.php';">goBack</button> to enter different location
 <?php
   }
   print "</body></html>";
@@ -162,15 +162,15 @@
 <script>
 function home()
 {
-  window.location="http://54.225.92.231/app/start.php";
+  window.location="http://meetup.hopto.org/app/start.php";
 }
 function signout()
 {
-  window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://54.225.92.231/app/meetupfinder";
+  window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://meetup.hopto.org/app/meetupfinder.php";
 }
 
 function connectFourSq()
 {
-window.location="http://54.225.92.231/app/foursquarenew.php";
+window.location="http://meetup.hopto.org/app/foursquarenew.php";
 }
 </script>

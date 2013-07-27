@@ -47,8 +47,8 @@
   // Facebook requires the following parameters
   $accessTokenExchangeParams = array(
     'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') . $redirectUriPath,
-    'client_id' => 'xxx', 
-    'client_secret' => 'yy',
+    'client_id' => '146448285541021', 
+    'client_secret' => 'ae2d8ff88efc0bd1d24eb2b2e320d4e6',
     'code' => $code);
 
   $httpClient = new Http_Client();

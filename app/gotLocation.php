@@ -32,11 +32,11 @@
 
 function home()
 {
-  window.location="http://54.225.92.231/app/start.php";
+  window.location="http://meetup.hopto.org/app/start.php";
 }
 function signout()
 {
-  window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://54.225.92.231/app/meetupfinder";
+  window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://meetup.hopto.org/app/meetupfinder.php";
 }
 </script>
 

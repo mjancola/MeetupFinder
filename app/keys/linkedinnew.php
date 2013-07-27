@@ -12,8 +12,8 @@
 
     // LinkedIn requires client_id = app_id and a redirect uri
     $queryParams = array(
-      'client_id' => 'www',  // app_id from LinkedIn
-      'client_secret' => 'ccc',
+      'client_id' => '8kq4mhd5zyg1',  // app_id from LinkedIn
+      'client_secret' => 'DB5xp8FWOu2ux914',
       //'client_id' => '4szyuwih9i83',  // app_id from LinkedIn
       //'client_secret' => '29sIwayaMjIBwW31',
       'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') . $redirectUriPath,

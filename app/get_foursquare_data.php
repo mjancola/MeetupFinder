@@ -21,14 +21,13 @@
 
   $accessToken =  $_SESSION['fs_token'];
   //print("<p>accessToken=$accessToken</p>\n"); 
-  $redirectUriPath = '/app/get_foursquare_data.php';
+  $redirectUriPath = 'meetup.hopto.org/app/get_foursquare_data.php';
 
   //Foursquare requires these
   $params = array(
     'oauth_token' => $accessToken,
     'format' => 'json',
-    'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') .
-      $_SERVER['HTTP_HOST'] . $redirectUriPath,
+    'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') . $redirectUriPath,
       );
 
 
@@ -73,11 +72,11 @@ echo "<h3>The top 10 American restaurants around ".$location." with a radius of 
 <script>
 function home()
 {
-  window.location="http://54.225.92.231/app/start.php";
+  window.location="http://meetup.hopto.org/app/start.php";
 }
 function signout()
 {
-  window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://54.225.92.231/app/meetupfinder";
+  window.location="https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://meetup.hopto.org/app/meetupfinder.php";
 }
 
 function popitup(url) {

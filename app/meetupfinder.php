@@ -47,7 +47,7 @@ text-align:center;
 
 <p style="font-family:arial;color:white;font-size:30px;">
 <b>Press a button to login using your account with of our affiliates</b>
-<center><a href=http://54.225.92.231/app/openidauth.php ><img src="google.jpg" > </a></center>
+<center><a href=http://meetup.hopto.org/app/openidauth.php ><img src="google.jpg" > </a></center>
 
 
 </p>
