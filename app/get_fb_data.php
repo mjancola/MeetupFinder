@@ -28,38 +28,19 @@
   $resCode=$all['code'];
   // echo $body;
    
-//To check if response has error -Might be the session token is invalid bcz application is deauthorized,session expired,or changed the password
+  // Check if response has error
+  // -Might be the session token is invalid bcz application is deauthorized,
+  // session expired,or changed the password
   if(array_key_exists('code', $all))      
-       { 
-              // echo $all['code'];
-               if($all['code']==400)//has an error in response
-		 {  
-                 
-                  echo "hello";
-                  $responseArray = json_decode($body, TRUE);
-                  print_r($responseArray['error']['message']);
-		   $authorizationUrlBase = 'https://www.facebook.com/dialog/oauth';
-                 $redirectUri4auth = '/app/oauth2fbcallback.php';
-
-   		  //Facebook requires client_id = app_id and a redirect uri
-  		   $queryParams = array(
-  					   'client_id' => '146448285541021',  // app_id from Facebook
-    		 			 'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') .
- 	        			 $_SERVER['HTTP_HOST'] . $redirectUri4auth ,
-      					// optional params
-   					   'state' => $_SESSION['state'],
-  					    'response_type' => 'code',
-     						 'scope' => 'friends_hometown'
-                                      );
-
-     	            $goToUrl = $authorizationUrlBase . '?' . http_build_query($queryParams);
-      
-                  //echo $goToUrl;
-                  header("Location:$goToUrl ");
-       
-                 
- 		  }
-         }
+  { 
+    // echo $all['code'];
+    if($all['code']==400)//has an error in response
+    {  
+      // clear the FB token and try again
+       $_SESSION['fb_token'] = "";
+       header('Location: fbstart.php');
+    }
+  }
 
   // print("<p>body=$body</p>");
   //print("<p>ResponseCode=$resCode</p>");
