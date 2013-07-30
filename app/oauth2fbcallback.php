@@ -26,18 +26,18 @@
      echo $isAccepted."isaccepted value";
      header("Location: /app/gotLocation.php"); 
   }
- else
- {  
-  $code = $_GET['code'];
-  $state = $_GET['state'];
+  else
+  {  
+    $code = $_GET['code'];
+    $state = $_GET['state'];
 
 
-  error_log("got code=" + $code, 3, "~/error.log");
-  error_log("got state=" + $state, 4);
+    error_log("got code=" + $code, 3, "~/error.log");
+    error_log("got state=" + $state, 4);
 
-  // Verify the 'state' value is the same random value we created when initiating the authorization request.
-  if ((! is_numeric($state)) || ($state != $_SESSION['state']))
-    throw new Exception('Error validating state. Possible CSRF.'
+    // Verify the 'state' value is the same random value we created when initiating the authorization request.
+    if ((! is_numeric($state)) || ($state != $_SESSION['state']))
+      throw new Exception('Error validating state. Possible CSRF.'
   );
 
   $accessTokenExchangeUrl = 'https://graph.facebook.com/oauth/access_token';
@@ -47,8 +47,8 @@
   // Facebook requires the following parameters
   $accessTokenExchangeParams = array(
     'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') . $redirectUriPath,
-    'client_id' => 'xxx', 
-    'client_secret' => 'yy',
+    'client_id' => 'yyy', 
+    'client_secret' => 'yyy',
     'code' => $code);
 
   $httpClient = new Http_Client();
@@ -64,9 +64,12 @@
   // helper automatically parses into variables named like the query keys  
   parse_str($body);
   $_SESSION['fb_token'] = $access_token;
-  $_SESSION['fb_expires'] = $expires;
+  //$_SESSION['fb_expires'] = $expires;
+  $_SESSION['fb_expires'] = $expires + time();
   $claimed_id = $_SESSION['claimed_id'];
- 
+
+  // local variable so we don't have to deal with nested quotes in the mysql query 
+  $fb_expires = $_SESSION['fb_expires'];
   
   Print "<p>accesToken=".$access_token."</p>";
   Print "<p>expires=".$expires."</p>";
@@ -74,8 +77,8 @@
 
   // save the values to the DB!
   mysql_connect("localhost", "root", "") or die(mysql_error()); 
-  mysql_select_db("meetupfinder_prod") or die(mysql_error()); 
-  $query="UPDATE users SET facebook_token='".$access_token."', facebooke_expires=".$expires." where claimed_id ='".$claimed_id."'";
+  mysql_select_db("meetupfinder_2") or die(mysql_error()); 
+  $query="UPDATE users SET facebook_token='".$access_token."', facebook_expires=".$fb_expires." where claimed_id ='".$claimed_id."'";
   Print "<p>QUERY=".$query."</p>";
   mysql_query($query);
 

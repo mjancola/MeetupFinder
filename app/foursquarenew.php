@@ -3,7 +3,11 @@
   //define('SCOPE', 'r_fullprofile r_network r_basicprofile r_emailaddress rw_nus' );
   //print("<h1>token=".$_SESSION['fs_token']."</h1>");
   
-  if ((!isset($_SESSION['fs_token'])) || (empty($_SESSION['fs_token'])) || ($_SESSION['fs_token'] == ''))
+  if ( (!isset($_SESSION['fs_token'])) || 
+       (empty($_SESSION['fs_token'])) ||
+       ($_SESSION['fs_token'] == '') ) 
+       // foursquare oauth tokens don't expire! 
+       //(time() > $_SESSION['fs_expires']) )
   {
     // unique session variable to passed to Authenication server as our state
     $_SESSION['state'] = rand(0,999999999);
@@ -12,8 +16,8 @@
 
     // Foursquare required parameters
     $queryParams = array(
-      'client_id' => 'yyy',  // app_id from Foursquare
-      'client_secret' => 'zzz',
+      'client_id' => 'xxx',  // app_id from Foursquare
+      'client_secret' => 'xxx',
       'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') . $redirectUriPath,
               
     // optional params
@@ -24,7 +28,7 @@
 
     // Output a webpage directing users to the $goToUrl after
     // they click a "Let's Go" button
-    echo "four square is  not set in our app this line is from foursquarenew.php";
+    //echo "four square is  not set in our app this line is from foursquarenew.php";
     // header("Location:$goToUrl");
     include 'access_request_templatefoursquare.php';
   }

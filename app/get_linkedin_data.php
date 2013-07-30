@@ -63,28 +63,18 @@
   //$goToUrl = (isset($_SERVER['HTTPS'])?'https://':'http://') .  $_SERVER['HTTP_HOST'] . $redirectUriPath1;
   if($count >= 1)
   {
-  print "<h2>$count connections  stays at $placename</h2>";
-  
-  ?>
-  
-  <h2>would you like to meet them?</h2>
-  <input type="button" onClick="return window.location='<?php echo 'http://meetup.hopto.org/app/foursquarenew.php';?>';" value="Yes" /> 
-  <input type="button" onClick="return window.location='<?php echo 'http://meetup.hopto.org/app/start.php';?>';" value="No" />
-
-  <?php
-
+    print "<h2>$count connections found associated with $placename</h2>";
+    print "<h2>Would you like to meet them?</h2>";
   }
-   else
+  else
   {
     print "<h2>No Connections found.  Search for venues anyway?</h2>";
-?>
-    <button  value "connectFS" onclick="connectFourSq()">Yes</button>
-    <button onclick="return window.location='http://meetup.hopto.org/app/start.php';">goBack</button> to enter different location
-<?php
   }
-  print "</body></html>";
-      
 ?>
+  <input type="button" onClick="return window.location='<?php echo 'http://meetup.hopto.org/app/foursquarenew.php';?>';" value="Yes" /> 
+  <input type="button" onClick="return window.location='<?php echo 'http://meetup.hopto.org/app/start.php';?>';" value="No" />
+  </body></html>
+      
 <script>
 
 function home()

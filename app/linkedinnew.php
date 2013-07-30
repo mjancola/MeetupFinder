@@ -1,7 +1,10 @@
 <?php
   session_start();
 
-  if ((!isset($_SESSION['li_token'])) || (empty($_SESSION['li_token'])) || ($_SESSION['li_token'] == ''))
+  if ( (!isset($_SESSION['li_token'])) ||
+       (empty($_SESSION['li_token'])) || 
+       ($_SESSION['li_token'] == '') ||
+       (time() > $_SESSION['li_expires']) )
   {
     define('SCOPE', 'r_fullprofile r_network r_basicprofile r_emailaddress rw_nus' );
   
@@ -12,8 +15,8 @@
 
     // LinkedIn requires client_id = app_id and a redirect uri
     $queryParams = array(
-      'client_id' => 'xxx',  // app_id from LinkedIn
-      'client_secret' => 'yyy',
+      'client_id' => 'zzz',  // app_id from LinkedIn
+      'client_secret' => 'zzz',
       'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') . $redirectUriPath,
               
       // optional params

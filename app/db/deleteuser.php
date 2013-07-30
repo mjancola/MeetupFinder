@@ -6,7 +6,7 @@
   
   // Connect
   mysql_connect("localhost", "root", "") or die(mysql_error()); 
-  mysql_select_db("meetupfinder_prod") or die(mysql_error()); 
+  mysql_select_db("meetupfinder_2") or die(mysql_error()); 
 
   // delete the old
   $query = "delete from users where claimed_id='".$_GET['claimed_id']."'";

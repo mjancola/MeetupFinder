@@ -18,8 +18,8 @@
   $accessTokenExchangeParams = array(
     'grant_type' => 'authorization_code',
     'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') . $redirectUriPath,
-    'client_id' => 'vvv', 
-    'client_secret' => 'uuu',
+    'client_id' => 'zzz', 
+    'client_secret' => 'zzz',
     'code' => $code);
 
   $httpClient = new Http_Client();
@@ -37,22 +37,24 @@
   $token = json_decode($body);
   
   $_SESSION['li_token'] = $token->access_token; // guard this!
-  $_SESSION['li_expires']   = $token->expires_in; // relative time (in seconds)
-  $_SESSION['expires_at']   = time() + $_SESSION['li_expires']; // absolute time
+  $_SESSION['li_expires']   = time() + $token->expires_in; // relative time (in seconds)
+  //$_SESSION['li_expiration_time']   = time() + $_SESSION['li_expires']; // absolute time
 
   $li_token = $_SESSION['li_token'] ;
   $li_expires = $_SESSION['li_expires'];
+  //$li_expiration_time = $_SESSION['li_expiration_time'];
   $claimed_id = $_SESSION['claimed_id'];
                     
- // Print "<h1>access=$access_token</h1>";
-// Print "<h2>expires=$expires</h2>"; 
-  Print "<h2>claimed_id=".$claimed_id."</h2";
+  //Print "<h1>access=$li_token</h1>";
+  //Print "<h2>expires=$li_expires</h2>"; 
+  //Print "<h2>expires=$li_expiration_time</h2>"; 
+  //Print "<h2>claimed_id=".$claimed_id."</h2";
 
   // save the values to the DB!
   mysql_connect("localhost", "root", "") or die(mysql_error()); 
-  mysql_select_db("meetupfinder_prod") or die(mysql_error()); 
+  mysql_select_db("meetupfinder_2") or die(mysql_error()); 
   $query="UPDATE users SET linkedin_token='".$li_token."', linkedin_expires=".$li_expires." where claimed_id ='".$claimed_id."'";
-  Print "<p>QUERY=".$query."</p>";
+  //Print "<p>QUERY=".$query."</p>";
   mysql_query($query);
   header('Location: /app/get_linkedin_data.php');
 ?> 

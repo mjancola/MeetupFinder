@@ -1,8 +1,15 @@
 <?php
   session_start();
   
-  if ((!isset($_SESSION['fb_token'])) || (empty($_SESSION['fb_token'])) || ($_SESSION['fb_token'] == ''))
+  // if we don't have a token, or the time now is after the token expiration 
+  if ( (!isset($_SESSION['fb_token'])) ||
+      (empty($_SESSION['fb_token'])) ||
+      ($_SESSION['fb_token'] == '') ||
+      (time() > $_SESSION['fb_expires']) )
   {
+   
+    print("<h2>time=".time()." expires=".$_SESSION['fb_expires']);
+
     // unique session variable to passed to Authenication server as our state
     $_SESSION['state'] = rand(0,999999999);
     $authorizationUrlBase = 'https://www.facebook.com/dialog/oauth';
@@ -10,7 +17,7 @@
 
     // Facebook requires client_id = app_id and a redirect uri
     $queryParams = array(
-      'client_id' => 'xxx',  // app_id from Facebook
+      'client_id' => 'yyy',  // app_id from Facebook
       'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') . $redirectUriPath,
       //'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') .
       //		$_SERVER['HTTP_HOST'] . $redirectUriPath,

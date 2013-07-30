@@ -59,7 +59,7 @@ else // ADDING NEW or UPDATING - this is a SUBMIT
   // Print "NAME:".$name." FBTOKEN:". $fbtoken." FBEXP:".$fbexpires." LITOKEN:".$litoken." LIEXP:".$liexpires." FSTOKEN:".$fstoken." FSEXP".$fsexpires;
   // Connect
   mysql_connect("localhost", "root", "") or die(mysql_error()); 
-  mysql_select_db("meetupfinder_prod") or die(mysql_error()); 
+  mysql_select_db("meetupfinder_2") or die(mysql_error()); 
 
   // Is this an update?
   if (isset($_POST['old_claimed_id']))
@@ -69,7 +69,8 @@ else // ADDING NEW or UPDATING - this is a SUBMIT
     mysql_query($query);
   }
     
-  $query="INSERT INTO users VALUES ('$name', '$email', '$claimed_id', '$fbtoken', $fbexpires, '$litoken', $liexpires, '$fstoken', $fsexpires)";
+  $query="INSERT INTO users VALUES ('$name', '$email', '$claimed_id', '$fbtoken', '$fbexpires', '$litoken', '$liexpires', '$fstoken', '$fsexpires')";
+  //print ("query=".$query);
   mysql_query($query);
   // Print "Added!"; 
  

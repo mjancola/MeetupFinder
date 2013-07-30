@@ -2,7 +2,7 @@
   session_start();
   // refetch the data on this user (in case something has expired)
   mysql_connect("localhost", "root", "") or die(mysql_error()); 
-  mysql_select_db("meetupfinder_prod") or die(mysql_error()); 
+  mysql_select_db("meetupfinder_2") or die(mysql_error()); 
   $data = mysql_query("SELECT * FROM users where claimed_id='" . $_SESSION['claimed_id'] . "'") or die(mysql_error());  
   $results = mysql_fetch_array( $data );
   $numrows = mysql_num_rows($data);
@@ -28,7 +28,7 @@
    
     // set or reset the session parameters
     $_SESSION['fb_token'] = $results['facebook_token'];
-    $_SESSION['fb_expires'] = $results['facebooke_expires'];
+    $_SESSION['fb_expires'] = $results['facebook_expires'];
     $_SESSION['li_token'] = $results['linkedin_token'];
     $_SESSION['li_expires'] = $results['linkedin_expires'];
     $_SESSION['fs_token'] = $results['foursquare_token'];

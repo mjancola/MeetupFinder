@@ -12,8 +12,8 @@
   $accessTokenExchangeParams = array(
     'grant_type' => 'authorization_code',
     'redirect_uri' => (isset($_SERVER['HTTPS'])?'https://':'http://') . $redirectUriPath,
-    'client_id' => 'bbb', 
-    'client_secret' => 'aaa',
+    'client_id' => 'xxx', 
+    'client_secret' => 'xxx',
     'code' => $code,);
 
   $httpClient = new Http_Client();
@@ -30,9 +30,8 @@
   
   $token = json_decode($body);
   
-    $_SESSION['fs_token'] = $token->access_token; // guard this!
-    $_SESSION['fs_expires']  = $token->expires_in; // relative time (in seconds)
-    $_SESSION['expires_at']   = time() + $_SESSION['expires_in']; // absolute time
+  $_SESSION['fs_token'] = $token->access_token; // guard this!
+  $_SESSION['fs_expires']  = $token->expires_in + time(); // relative time (in seconds) + current time
 
   $access_token = $_SESSION['fs_token'];
   $expires = $_SESSION['fs_expires'];
@@ -50,7 +49,7 @@
 
   // save the values to the DB!
   mysql_connect("localhost", "root", "") or die(mysql_error()); 
-  mysql_select_db("meetupfinder_prod") or die(mysql_error()); 
+  mysql_select_db("meetupfinder_2") or die(mysql_error()); 
   $query="UPDATE users SET foursquare_token='".$access_token."', foursquare_expires=".$expires." where claimed_id ='".$claimed_id."'";
   //Print "<p>QUERY=".$query."</p>";
   mysql_query($query);
